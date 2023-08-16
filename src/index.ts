@@ -1,7 +1,8 @@
-import { greetUser } from '$utils/greet';
+import { nestLinkPervent } from '$utils/nest-links-pervent';
+import { timeAccordionComponent } from '$utils/time-accordion-component';
 
 window.Webflow ||= [];
 window.Webflow.push(() => {
-  const name = 'John Doe';
-  greetUser(name);
+  nestLinkPervent();
+  timeAccordionComponent();
 });

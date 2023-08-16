@@ -52,7 +52,8 @@
     "typescript": "^5.1.3"
   },
   "dependencies": {
-    "@finsweet/ts-utils": "^0.39.2"
+    "@finsweet/ts-utils": "^0.39.2",
+    "swiper": "^10.1.0"
   },
   "engines": {
     "pnpm": ">=8"
