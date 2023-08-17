@@ -111,11 +111,24 @@ export const timeAccordionComponent = () => {
 
           // Find the active tab element.
           const activeTab = document.querySelector('.time-accordion_inner .w--tab-active');
+
+          const activeTab_ctaAppendWaiter = activeTab.querySelector('.button-append-waiter');
+          const activeTab_ctaAppendSrc = activeTab.querySelector('.button-append-src');
+          activeTab_ctaAppendWaiter.appendChild(activeTab_ctaAppendSrc);
+
           // Get rows within the active tab.
           const tabsRows = activeTab.querySelectorAll('.cl-i_time-accordion_widget-content-row');
           tabsRows[0].classList.add('active');
           rowsOrderFromActive();
         }
+
+        const allCtaAppendSrc = document.querySelectorAll('.button-append-src a');
+        allCtaAppendSrc.forEach((a) => {
+          a.addEventListener('click', () => {
+            a.getAttribute('href');
+            window.location.href = a.getAttribute('href');
+          });
+        });
 
         let lastExecutionTime = 0;
 
