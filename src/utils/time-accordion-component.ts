@@ -10,7 +10,12 @@ export const timeAccordionComponent = () => {
         allRows[0].classList.add('active');
         allRows.forEach((row) => {
           row.addEventListener('click', () => {
-            animateRow(row);
+            clearInterval(rowInterval);
+            allRows.forEach((row) => {
+              row.classList.remove('active');
+            });
+            row.classList.add('active');
+            rowsOrderFromActive();
           });
         });
 
@@ -43,18 +48,31 @@ export const timeAccordionComponent = () => {
         }
 
         function rowsOrderFromActive() {
-          const activeRow = document.querySelector(
-            '.cl-i_time-accordion_widget-content-row.active'
-          );
+          clearInterval(rowInterval);
+          let activeRow = document.querySelector('.cl-i_time-accordion_widget-content-row.active');
           animateRow(activeRow);
-          rowInterval = setInterval(() => {}, 3500);
+          rowInterval = setInterval(() => {
+            if (activeRow.nextElementSibling) {
+              activeRow.classList.remove('active');
+              activeRow = activeRow.nextElementSibling;
+              activeRow.classList.add('active');
+              animateRow(activeRow);
+            } else {
+              const firstRow = activeRow.parentNode.firstChild;
+              activeRow.classList.remove('active');
+              activeRow = firstRow;
+              activeRow.classList.add('active');
+              rowsOrderFromActive();
+            }
+          }, 3500);
         }
 
         function findActiveTab() {
-          const activeTab = document.querySelector('.time-accordion_inner .w--tab-active');
+          clearInterval(rowInterval);
           allRows.forEach((row) => {
             row.classList.remove('active');
           });
+          const activeTab = document.querySelector('.time-accordion_inner .w--tab-active');
           const tabsRows = activeTab.querySelectorAll('.cl-i_time-accordion_widget-content-row');
           tabsRows[0].classList.add('active');
           rowsOrderFromActive();
@@ -88,7 +106,10 @@ export const timeAccordionComponent = () => {
           observer.observe(tabPane, config);
         });
 
-        const throttledFindActiveTab = throttle(findActiveTab, 100);
+        const throttledFindActiveTab = throttle(findActiveTab, 200);
+        setTimeout(() => {
+          findActiveTab();
+        }, 500);
       })
       .catch((error) => {
         console.error('Error:', error);
