@@ -42,8 +42,13 @@ export const timeAccordionComponent = () => {
           );
           const currentArrowIcon = el.querySelector('.arrow-icon');
           const currentContentP = el.querySelector('.is-time-accordion_widget-content-row-col');
+          const currentId = el.getAttribute('data-id');
+          const currentImage = document.querySelector(
+            `.visual-with-shadow_visual[data-id="${currentId}"]`
+          );
 
           // Get similar elements from all rows.
+          const allImages = document.querySelectorAll('.visual-with-shadow_visual');
           const allProgressBar = document.querySelectorAll(
             '.time-accordion_widget-content-row-progress'
           );
@@ -62,11 +67,15 @@ export const timeAccordionComponent = () => {
           allContentP.forEach((contentP) => {
             contentP.classList.remove('animated');
           });
+          allImages.forEach((image) => {
+            image.classList.add('hide');
+          });
 
           // Add 'animated' class to the current row's elements.
           currentProgressBar.classList.add('animated');
           currentArrowIcon.classList.add('animated');
           currentContentP.classList.add('animated');
+          currentImage.classList.remove('hide');
         }
 
         // Function to handle the order of rows when active.
