@@ -138,6 +138,28 @@ export const timeAccordionComponent = () => {
         // Observe class changes in tab panes.
         tabPanes.forEach((tabPane) => {
           observer.observe(tabPane, config);
+
+          const componentParent = tabPane.closest('[time-accordion-component]');
+          const componentParent_allRows = componentParent.querySelectorAll(
+            '.cl-i_time-accordion_widget-content-row'
+          );
+          componentParent_allRows.forEach((row, id) => {
+            const rowImage = row.querySelector('.visual-with-shadow_visual');
+            row.setAttribute('data-id', id);
+            if (rowImage) {
+              rowImage.setAttribute('data-id', id);
+            }
+
+            const currentTabParent = row.closest('.w-tab-pane');
+
+            const currentTabImagePlaceholder = currentTabParent.querySelector(
+              '[rows-image-placeholder]'
+            );
+
+            if (rowImage) {
+              currentTabImagePlaceholder.appendChild(rowImage);
+            }
+          });
         });
 
         // Apply throttle to the findActiveTab function.
