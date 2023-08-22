@@ -27,7 +27,7 @@ export const swiper_homePageInit = () => {
       },
     });
 
-    const allSlides = document.querySelectorAll('.swiper-slide.card_item');
+    const allSlides = document.querySelectorAll('.swiper-slide.swiper-slide');
     const allSlidesTotal = allSlides.length;
     const allShadows = currentSwiperSection.querySelectorAll('.card_item.is-background.is-swiper');
     // allShadows[0].classList.add('is-active');
@@ -48,9 +48,9 @@ export const swiper_homePageInit = () => {
           allShadows.forEach((shadow) => {
             // shadow.classList.remove('is-active');
           });
-          const currentShadow = currentAciveSlide.querySelector(
-            '.card_item.is-background.is-swiper'
-          );
+          // const currentShadow = currentAciveSlide.querySelector(
+          //   '.card_item.is-background.is-swiper'
+          // );
           // currentShadow.classList.add('is-active');
         }, 200);
       });
