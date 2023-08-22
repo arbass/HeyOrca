@@ -191,6 +191,36 @@ export const timeAccordionComponent = () => {
         setTimeout(() => {
           findActiveTab();
         }, 500);
+
+        function handleTabsInViewport(entries) {
+          entries.forEach((entry) => {
+            if (entry.isIntersecting) {
+              findActiveTab();
+            }
+          });
+        }
+
+        function handleTabsOutOfViewport(entries) {
+          entries.forEach((entry) => {
+            if (!entry.isIntersecting) {
+              clearInterval(rowInterval);
+            }
+          });
+        }
+
+        const options = {
+          root: null,
+          threshold: 0.5,
+        };
+
+        const observer_2 = new IntersectionObserver(handleTabsInViewport, options);
+        const outOfViewportObserver = new IntersectionObserver(handleTabsOutOfViewport, options);
+
+        const tabsElement = document.querySelector('.tabs');
+        if (tabsElement) {
+          observer_2.observe(tabsElement);
+          outOfViewportObserver.observe(tabsElement);
+        }
       })
       .catch((error) => {
         console.error('Error:', error);
