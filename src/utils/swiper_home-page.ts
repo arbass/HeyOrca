@@ -13,10 +13,12 @@ export const swiper_homePageInit = () => {
       loop: true,
       breakpoints: {
         0: {
-          slidesPerView: 1.3,
+          slidesPerView: 1.1,
+          spaceBetween: 16,
         },
         768: {
-          slidesPerView: 2.3,
+          slidesPerView: 3,
+          spaceBetween: 32,
         },
         992: {
           slidesPerView: 3,
@@ -28,7 +30,7 @@ export const swiper_homePageInit = () => {
     const allSlides = document.querySelectorAll('.swiper-slide.card_item');
     const allSlidesTotal = allSlides.length;
     const allShadows = currentSwiperSection.querySelectorAll('.card_item.is-background.is-swiper');
-    allShadows[0].classList.add('is-active');
+    // allShadows[0].classList.add('is-active');
 
     allSlides.forEach((slide, id) => {
       slide.setAttribute('current-slide-id', id + 1);
@@ -44,12 +46,12 @@ export const swiper_homePageInit = () => {
           const currentAciveSlide_id = currentAciveSlide.getAttribute('current-slide-id');
           slidesCounter.textContent = currentAciveSlide_id + '/' + allSlidesTotal;
           allShadows.forEach((shadow) => {
-            shadow.classList.remove('is-active');
+            // shadow.classList.remove('is-active');
           });
           const currentShadow = currentAciveSlide.querySelector(
             '.card_item.is-background.is-swiper'
           );
-          currentShadow.classList.add('is-active');
+          // currentShadow.classList.add('is-active');
         }, 200);
       });
     }
