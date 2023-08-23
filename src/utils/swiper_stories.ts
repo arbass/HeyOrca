@@ -5,7 +5,7 @@ import 'swiper/css';
 
 import Swiper from 'swiper';
 export const swiper_storiesInit = () => {
-  const currentSwiperSection_stories = document.querySelector('.section_insta-stories');
+  const currentSwiperSection_stories = document.querySelector('.clw_insta-stories_row');
   if (currentSwiperSection_stories) {
     const swiper_soc = new Swiper('.swiper.is-soc-media', {
       slidesPerView: 1.5,
