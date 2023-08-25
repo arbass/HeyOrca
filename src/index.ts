@@ -1,4 +1,5 @@
 import { featureCardsTunnel } from '$utils/feature-cards-tunnel';
+import { sectionColFeature_2 } from '$utils/feature-cards-tunnel_2';
 import { featuresCardsList } from '$utils/features-cards_list';
 import { nestLinkPervent } from '$utils/nest-links-pervent';
 import { swiper_homePageInit } from '$utils/swiper_home-page';
@@ -13,4 +14,5 @@ window.Webflow.push(() => {
   swiper_storiesInit();
   featureCardsTunnel();
   featuresCardsList();
+  sectionColFeature_2();
 });
