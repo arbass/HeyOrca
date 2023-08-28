@@ -3,6 +3,18 @@
   // bin/live-reload.js
   new EventSource(`${"http://localhost:3000"}/esbuild`).addEventListener("change", () => location.reload());
 
+  // src/utils/blog-article-not-null.ts
+  var articlesNotNull = () => {
+    const articlesNotNull_el = document.querySelector(".section_blog-grid");
+    if (articlesNotNull_el) {
+      const allGrigItems = articlesNotNull_el.querySelectorAll(".cl-i_blog-grid_wrapper");
+      if (allGrigItems.length) {
+      } else {
+        articlesNotNull_el.classList.add("hide");
+      }
+    }
+  };
+
   // src/utils/feature-cards-tunnel.ts
   var featureCardsTunnel = () => {
     const featureCardsTunnel_el = document.querySelector(".feature-cards-tunnel");
@@ -4242,6 +4254,7 @@
     featuresCardsList();
     sectionColFeature_2();
     filterFirstButtonClick();
+    articlesNotNull();
   });
 })();
 //# sourceMappingURL=index.js.map

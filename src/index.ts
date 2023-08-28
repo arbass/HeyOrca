@@ -1,3 +1,4 @@
+import { articlesNotNull } from '$utils/blog-article-not-null';
 import { featureCardsTunnel } from '$utils/feature-cards-tunnel';
 import { sectionColFeature_2 } from '$utils/feature-cards-tunnel_2';
 import { featuresCardsList } from '$utils/features-cards_list';
@@ -17,4 +18,5 @@ window.Webflow.push(() => {
   featuresCardsList();
   sectionColFeature_2();
   filterFirstButtonClick();
+  articlesNotNull();
 });
