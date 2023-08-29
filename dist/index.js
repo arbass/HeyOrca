@@ -96,6 +96,20 @@
     }
   };
 
+  // src/utils/footer-form.ts
+  var footerForm = () => {
+    const footerForm_el = document.querySelector(".footer_form-block");
+    if (footerForm_el) {
+      const footerPageInfo = document.getElementById("footer-page-info");
+      footerPageInfo.value = window.location.href;
+      const currentFakeButton = footerForm_el.querySelector(".button.is-form-footer");
+      currentFakeButton.addEventListener("click", function() {
+        const currentRealButton = footerForm_el.querySelector(".footer_real-form-button");
+        currentRealButton.click();
+      });
+    }
+  };
+
   // src/utils/nest-links-pervent.ts
   var nestLinkPervent = () => {
     const links = document.querySelectorAll("[nest-links-pervent]");
@@ -4243,6 +4257,17 @@
     }
   };
 
+  // src/utils/webinar-forms.ts
+  var webinarForm = () => {
+    const webinarForm_el = document.querySelector(".section_webinars");
+    if (webinarForm_el) {
+      const allWebinarInputs = webinarForm_el.querySelectorAll("[current-webinar-value]");
+      allWebinarInputs.forEach((input) => {
+        input.value = input.getAttribute("current-webinar-value");
+      });
+    }
+  };
+
   // src/index.ts
   window.Webflow ||= [];
   window.Webflow.push(() => {
@@ -4255,6 +4280,8 @@
     sectionColFeature_2();
     filterFirstButtonClick();
     articlesNotNull();
+    footerForm();
+    webinarForm();
   });
 })();
 //# sourceMappingURL=index.js.map

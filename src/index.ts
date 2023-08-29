@@ -3,10 +3,12 @@ import { featureCardsTunnel } from '$utils/feature-cards-tunnel';
 import { sectionColFeature_2 } from '$utils/feature-cards-tunnel_2';
 import { featuresCardsList } from '$utils/features-cards_list';
 import { filterFirstButtonClick } from '$utils/filter-first-button-click';
+import { footerForm } from '$utils/footer-form';
 import { nestLinkPervent } from '$utils/nest-links-pervent';
 import { swiper_homePageInit } from '$utils/swiper_home-page';
 import { swiper_storiesInit } from '$utils/swiper_stories';
 import { timeAccordionComponent } from '$utils/time-accordion-component';
+import { webinarForm } from '$utils/webinar-forms';
 
 window.Webflow ||= [];
 window.Webflow.push(() => {
@@ -19,4 +21,6 @@ window.Webflow.push(() => {
   sectionColFeature_2();
   filterFirstButtonClick();
   articlesNotNull();
+  footerForm();
+  webinarForm();
 });
