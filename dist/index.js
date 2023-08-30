@@ -4023,7 +4023,7 @@
     if (currentSwiperSection) {
       const swiper = new Swiper(".swiper.swiper-1_wrapper", {
         direction: "horizontal",
-        loop: true,
+        loop: false,
         breakpoints: {
           0: {
             slidesPerView: 1.1,
@@ -4039,7 +4039,7 @@
           }
         }
       });
-      const allSlides = document.querySelectorAll(".swiper-slide.swiper-slide");
+      const allSlides = currentSwiperSection.querySelectorAll(".swiper-slide");
       const allSlidesTotal = allSlides.length;
       const allShadows = currentSwiperSection.querySelectorAll(".card_item.is-background.is-swiper");
       allSlides.forEach((slide2, id) => {

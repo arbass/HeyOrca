@@ -10,7 +10,7 @@ export const swiper_homePageInit = () => {
   if (currentSwiperSection) {
     const swiper = new Swiper('.swiper.swiper-1_wrapper', {
       direction: 'horizontal',
-      loop: true,
+      loop: false,
       breakpoints: {
         0: {
           slidesPerView: 1.1,
@@ -27,7 +27,7 @@ export const swiper_homePageInit = () => {
       },
     });
 
-    const allSlides = document.querySelectorAll('.swiper-slide.swiper-slide');
+    const allSlides = currentSwiperSection.querySelectorAll('.swiper-slide');
     const allSlidesTotal = allSlides.length;
     const allShadows = currentSwiperSection.querySelectorAll('.card_item.is-background.is-swiper');
     // allShadows[0].classList.add('is-active');
