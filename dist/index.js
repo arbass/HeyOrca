@@ -4092,6 +4092,10 @@
     const tabComponent = document.querySelector("[time-accordion-component]");
     if (tabComponent) {
       fsAttributes.cmsnest.loading.then(() => {
+        setTimeout(function() {
+          const sectionAccordionComponent_elOp = document.querySelector(".section_time-accordion");
+          sectionAccordionComponent_elOp.classList.remove("hide-opacity");
+        }, 1500);
         let rowInterval;
         const allRows = document.querySelectorAll(
           ".time-accordion_inner .cl-i_time-accordion_widget-content-row"

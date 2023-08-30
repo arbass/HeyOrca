@@ -9,6 +9,10 @@ export const timeAccordionComponent = () => {
     // Load some attributes from a Content Management System.
     fsAttributes.cmsnest.loading
       .then(() => {
+        setTimeout(function () {
+          const sectionAccordionComponent_elOp = document.querySelector('.section_time-accordion');
+          sectionAccordionComponent_elOp.classList.remove('hide-opacity');
+        }, 1500);
         //empty var of the interval
         let rowInterval;
 
