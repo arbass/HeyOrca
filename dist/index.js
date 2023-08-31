@@ -122,6 +122,29 @@
     }
   };
 
+  // src/utils/pricing-page.ts
+  var pricingPage = () => {
+    const pricingPage_el = document.querySelector(".range-slider-sticky-parent");
+    if (pricingPage_el) {
+      fsAttributes.rangeslider.loading.then((result) => {
+        if (fsAttributes.rangeslider.loading instanceof Promise) {
+          let changePrice2 = function() {
+            console.log(el_slider.getAttribute("aria-valuenow"));
+          };
+          var changePrice = changePrice2;
+          const el_slider = pricingPage_el.querySelector(".fs-rangeslider_handle");
+          const el_sliderInput = pricingPage_el.querySelector('[fs-cmsfilter-field="price"]');
+          el_sliderInput.addEventListener("input", function() {
+            changePrice2();
+          });
+        }
+        changePrice();
+      }).catch((error) => {
+        console.error("Error when executing a promis for range slider:", error);
+      });
+    }
+  };
+
   // node_modules/.pnpm/swiper@10.1.0/node_modules/swiper/shared/ssr-window.esm.mjs
   function isObject(obj) {
     return obj !== null && typeof obj === "object" && "constructor" in obj && obj.constructor === Object;
@@ -4286,6 +4309,7 @@
     articlesNotNull();
     footerForm();
     webinarForm();
+    pricingPage();
   });
 })();
 //# sourceMappingURL=index.js.map

@@ -5,6 +5,7 @@ import { featuresCardsList } from '$utils/features-cards_list';
 import { filterFirstButtonClick } from '$utils/filter-first-button-click';
 import { footerForm } from '$utils/footer-form';
 import { nestLinkPervent } from '$utils/nest-links-pervent';
+import { pricingPage } from '$utils/pricing-page';
 import { swiper_homePageInit } from '$utils/swiper_home-page';
 import { swiper_storiesInit } from '$utils/swiper_stories';
 import { timeAccordionComponent } from '$utils/time-accordion-component';
@@ -23,4 +24,5 @@ window.Webflow.push(() => {
   articlesNotNull();
   footerForm();
   webinarForm();
+  pricingPage();
 });
