@@ -132,7 +132,7 @@
             const allPlaceholders = document.querySelectorAll("[range-price-value-m-1]");
             allPlaceholders.forEach((placeholder) => {
               const currentCount = placeholder.getAttribute(
-                "range-price-value-m-" + el_slider.getAttribute("aria-valuenow")
+                "range-price-value-" + currentPeriod + "-" + el_slider.getAttribute("aria-valuenow")
               );
               const currentParent = placeholder.closest("[price-card-header]");
               const currentCta = currentParent.querySelector("[price-card-header-cta]");
@@ -150,6 +150,18 @@
           var changePrice = changePrice2;
           const el_slider = pricingPage_el.querySelector(".fs-rangeslider_handle");
           const el_sliderInput = pricingPage_el.querySelector('[fs-cmsfilter-field="price"]');
+          let currentPeriod = "m";
+          const periodButtons = document.querySelectorAll(".time-accordion_nav.is-pricing .button");
+          periodButtons.forEach((button) => {
+            button.addEventListener("mousedown", function() {
+              periodButtons.forEach((el) => {
+                el.classList.remove("_w--current");
+              });
+              button.classList.add("_w--current");
+              currentPeriod = button.querySelector("input").getAttribute("value");
+              changePrice2();
+            });
+          });
           el_sliderInput.addEventListener("input", function() {
             changePrice2();
           });
