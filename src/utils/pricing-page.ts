@@ -33,9 +33,20 @@ export const pricingPage = () => {
               const currentCount = placeholder.getAttribute(
                 'range-price-value-' + currentPeriod + '-' + el_slider.getAttribute('aria-valuenow')
               );
+
               const currentParent = placeholder.closest('[price-card-header]');
-              const currentCta = currentParent.querySelector('[price-card-header-cta]');
-              const currentPrice = currentParent.querySelector('[price-card-header-price]');
+              if (currentParent) {
+                const currentCta = currentParent.querySelector('[price-card-header-cta]');
+                const currentPrice = currentParent.querySelector('[price-card-header-price]');
+
+                if (el_slider.getAttribute('aria-valuenow') == '10') {
+                  currentCta.classList.remove('hide');
+                  currentPrice.classList.add('hide');
+                } else {
+                  currentCta.classList.add('hide');
+                  currentPrice.classList.remove('hide');
+                }
+              }
 
               //--
               // Если есть "*", то найти первую и заменить <s>, а вторую заменить </s>
@@ -46,14 +57,6 @@ export const pricingPage = () => {
                 placeholder.innerHTML = currentCount.replace('*', '<s>').replace('*', '</s>');
               } else {
                 placeholder.textContent = currentCount; // Если звездочек нет или их больше двух, просто устанавливаем текст
-              }
-
-              if (el_slider.getAttribute('aria-valuenow') == '10') {
-                currentCta.classList.remove('hide');
-                currentPrice.classList.add('hide');
-              } else {
-                currentCta.classList.add('hide');
-                currentPrice.classList.remove('hide');
               }
             });
           }
