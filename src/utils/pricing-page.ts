@@ -22,7 +22,13 @@ export const pricingPage = () => {
           });
 
           function changePrice() {
-            const allPlaceholders = document.querySelectorAll('[range-price-value-m-1]');
+            const allPlaceholders = document.querySelectorAll(
+              '[range-price-value-' +
+                currentPeriod +
+                '-' +
+                el_slider.getAttribute('aria-valuenow') +
+                ']'
+            );
             allPlaceholders.forEach((placeholder) => {
               const currentCount = placeholder.getAttribute(
                 'range-price-value-' + currentPeriod + '-' + el_slider.getAttribute('aria-valuenow')
@@ -31,7 +37,16 @@ export const pricingPage = () => {
               const currentCta = currentParent.querySelector('[price-card-header-cta]');
               const currentPrice = currentParent.querySelector('[price-card-header-price]');
 
-              placeholder.textContent = currentCount;
+              //--
+              // Если есть "*", то найти первую и заменить <s>, а вторую заменить </s>
+              const starCount = (currentCount.match(/\*/g) || []).length;
+              if (starCount === 1) {
+                placeholder.innerHTML = currentCount.replace('*', '<s>');
+              } else if (starCount === 2) {
+                placeholder.innerHTML = currentCount.replace('*', '<s>').replace('*', '</s>');
+              } else {
+                placeholder.textContent = currentCount; // Если звездочек нет или их больше двух, просто устанавливаем текст
+              }
 
               if (el_slider.getAttribute('aria-valuenow') == '10') {
                 currentCta.classList.remove('hide');
@@ -50,7 +65,7 @@ export const pricingPage = () => {
         changePrice();
       })
       .catch((error) => {
-        console.error('Error when executing a promis for range slider:', error);
+        console.error('Ошибка при выполнении обещания для ползунка:', error);
       });
   }
 };

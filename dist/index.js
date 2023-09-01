@@ -129,7 +129,9 @@
       fsAttributes.rangeslider.loading.then((result) => {
         if (fsAttributes.rangeslider.loading instanceof Promise) {
           let changePrice2 = function() {
-            const allPlaceholders = document.querySelectorAll("[range-price-value-m-1]");
+            const allPlaceholders = document.querySelectorAll(
+              "[range-price-value-" + currentPeriod + "-" + el_slider.getAttribute("aria-valuenow") + "]"
+            );
             allPlaceholders.forEach((placeholder) => {
               const currentCount = placeholder.getAttribute(
                 "range-price-value-" + currentPeriod + "-" + el_slider.getAttribute("aria-valuenow")
@@ -137,7 +139,14 @@
               const currentParent = placeholder.closest("[price-card-header]");
               const currentCta = currentParent.querySelector("[price-card-header-cta]");
               const currentPrice = currentParent.querySelector("[price-card-header-price]");
-              placeholder.textContent = currentCount;
+              const starCount = (currentCount.match(/\*/g) || []).length;
+              if (starCount === 1) {
+                placeholder.innerHTML = currentCount.replace("*", "<s>");
+              } else if (starCount === 2) {
+                placeholder.innerHTML = currentCount.replace("*", "<s>").replace("*", "</s>");
+              } else {
+                placeholder.textContent = currentCount;
+              }
               if (el_slider.getAttribute("aria-valuenow") == "10") {
                 currentCta.classList.remove("hide");
                 currentPrice.classList.add("hide");
@@ -168,7 +177,7 @@
         }
         changePrice();
       }).catch((error) => {
-        console.error("Error when executing a promis for range slider:", error);
+        console.error("\u041E\u0448\u0438\u0431\u043A\u0430 \u043F\u0440\u0438 \u0432\u044B\u043F\u043E\u043B\u043D\u0435\u043D\u0438\u0438 \u043E\u0431\u0435\u0449\u0430\u043D\u0438\u044F \u0434\u043B\u044F \u043F\u043E\u043B\u0437\u0443\u043D\u043A\u0430:", error);
       });
     }
   };
