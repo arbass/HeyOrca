@@ -131,9 +131,20 @@
           let changePrice2 = function() {
             const allPlaceholders = document.querySelectorAll("[range-price-value-m-1]");
             allPlaceholders.forEach((placeholder) => {
-              placeholder.textContent = placeholder.getAttribute(
+              const currentCount = placeholder.getAttribute(
                 "range-price-value-m-" + el_slider.getAttribute("aria-valuenow")
               );
+              const currentParent = placeholder.closest("[price-card-header]");
+              const currentCta = currentParent.querySelector("[price-card-header-cta]");
+              const currentPrice = currentParent.querySelector("[price-card-header-price]");
+              placeholder.textContent = currentCount;
+              if (el_slider.getAttribute("aria-valuenow") == "10") {
+                currentCta.classList.remove("hide");
+                currentPrice.classList.add("hide");
+              } else {
+                currentCta.classList.add("hide");
+                currentPrice.classList.remove("hide");
+              }
             });
           };
           var changePrice = changePrice2;
