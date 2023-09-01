@@ -10,7 +10,12 @@ export const pricingPage = () => {
           const el_sliderInput = pricingPage_el.querySelector('[fs-cmsfilter-field="price"]');
 
           function changePrice() {
-            console.log(el_slider.getAttribute('aria-valuenow'));
+            const allPlaceholders = document.querySelectorAll('[range-price-value-m-1]');
+            allPlaceholders.forEach((placeholder) => {
+              placeholder.textContent = placeholder.getAttribute(
+                'range-price-value-m-' + el_slider.getAttribute('aria-valuenow')
+              );
+            });
           }
 
           el_sliderInput.addEventListener('input', function () {

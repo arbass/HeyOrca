@@ -129,7 +129,12 @@
       fsAttributes.rangeslider.loading.then((result) => {
         if (fsAttributes.rangeslider.loading instanceof Promise) {
           let changePrice2 = function() {
-            console.log(el_slider.getAttribute("aria-valuenow"));
+            const allPlaceholders = document.querySelectorAll("[range-price-value-m-1]");
+            allPlaceholders.forEach((placeholder) => {
+              placeholder.textContent = placeholder.getAttribute(
+                "range-price-value-m-" + el_slider.getAttribute("aria-valuenow")
+              );
+            });
           };
           var changePrice = changePrice2;
           const el_slider = pricingPage_el.querySelector(".fs-rangeslider_handle");
