@@ -66,7 +66,7 @@ export const pricingPage = () => {
         changePrice();
       })
       .catch((error) => {
-        console.error('Ошибка при выполнении обещания для ползунка:', error);
+        // console.error('Ошибка', error);
       });
   }
 };
