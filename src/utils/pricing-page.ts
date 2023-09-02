@@ -6,6 +6,22 @@ export const pricingPage = () => {
     fsAttributes.rangeslider.loading
       .then((result) => {
         if (fsAttributes.rangeslider.loading instanceof Promise) {
+          //-––
+          //-–– fill
+          //–––––––– swiper fill
+          const swiperPriceAppendWaiter = document.querySelector('.swiper-wrapper.is-pricing-page');
+          const allPrcingGeaderClonable = document.querySelectorAll('[prcing-header-clonable]');
+          allPrcingGeaderClonable.forEach((clonableElement) => {
+            const newSlide_pricing = document.createElement('div');
+            newSlide_pricing.classList.add('swiper');
+            newSlide_pricing.classList.add('is-pricing-page');
+            const itsClonable = clonableElement.cloneNode(true);
+            newSlide_pricing.appendChild(itsClonable);
+            swiperPriceAppendWaiter.appendChild(newSlide_pricing);
+          });
+          console.log(swiperPriceAppendWaiter);
+          //––––––––
+          //-––
           const el_slider = pricingPage_el.querySelector('.fs-rangeslider_handle');
           const el_sliderInput = pricingPage_el.querySelector('[fs-cmsfilter-field="price"]');
           let currentPeriod = 'm';
