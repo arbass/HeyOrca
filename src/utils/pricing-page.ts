@@ -1,4 +1,9 @@
 /* eslint-disable no-console */
+// import Swiper JS
+// import Swiper styles
+import 'swiper/css';
+
+import Swiper from 'swiper';
 
 export const pricingPage = () => {
   const pricingPage_el = document.querySelector('.range-slider-sticky-parent');
@@ -13,13 +18,12 @@ export const pricingPage = () => {
           const allPrcingGeaderClonable = document.querySelectorAll('[prcing-header-clonable]');
           allPrcingGeaderClonable.forEach((clonableElement) => {
             const newSlide_pricing = document.createElement('div');
-            newSlide_pricing.classList.add('swiper');
+            newSlide_pricing.classList.add('swiper-slide');
             newSlide_pricing.classList.add('is-pricing-page');
             const itsClonable = clonableElement.cloneNode(true);
             newSlide_pricing.appendChild(itsClonable);
             swiperPriceAppendWaiter.appendChild(newSlide_pricing);
           });
-          console.log(swiperPriceAppendWaiter);
           //––––––––
           //-––
           const el_slider = pricingPage_el.querySelector('.fs-rangeslider_handle');
@@ -78,6 +82,15 @@ export const pricingPage = () => {
           el_sliderInput.addEventListener('input', function () {
             changePrice();
           });
+
+          // –––––––– swiper go
+          const swiper_soc = new Swiper('.swiper.is-pricing-page', {
+            slidesPerView: 1.2,
+            centeredSlides: true,
+            spaceBetween: 0,
+            initialSlide: 2,
+          });
+          // ––––––––
         }
         changePrice();
       })
