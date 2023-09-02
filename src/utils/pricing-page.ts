@@ -48,15 +48,13 @@ export const pricingPage = () => {
                 }
               }
 
-              //--
-              // Если есть "*", то найти первую и заменить <s>, а вторую заменить </s>
               const starCount = (currentCount.match(/\*/g) || []).length;
               if (starCount === 1) {
                 placeholder.innerHTML = currentCount.replace('*', '<s>');
               } else if (starCount === 2) {
                 placeholder.innerHTML = currentCount.replace('*', '<s>').replace('*', '</s>');
               } else {
-                placeholder.textContent = currentCount; // Если звездочек нет или их больше двух, просто устанавливаем текст
+                placeholder.textContent = currentCount;
               }
             });
           }
