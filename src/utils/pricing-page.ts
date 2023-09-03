@@ -12,10 +12,17 @@ export const pricingPage = () => {
       .then((result) => {
         if (fsAttributes.rangeslider.loading instanceof Promise) {
           //-––
+          //––––––––
+          //–––––––– table fill
+          const allPricingTableCategory = document.querySelectorAll('[pricing-table-category]');
+          const allPrcingGeaderClonable = document.querySelectorAll('[prcing-header-clonable]');
+          allPrcingGeaderClonable.forEach((plan, plan_id) => {
+            const tableCategoryFirst = allPricingTableCategory[0];
+            console.log(tableCategoryFirst);
+          });
           //-–– fill
           //–––––––– swiper fill
           const swiperPriceAppendWaiter = document.querySelector('.swiper-wrapper.is-pricing-page');
-          const allPrcingGeaderClonable = document.querySelectorAll('[prcing-header-clonable]');
           allPrcingGeaderClonable.forEach((clonableElement) => {
             const newSlide_pricing = document.createElement('div');
             newSlide_pricing.classList.add('swiper-slide');
@@ -24,7 +31,7 @@ export const pricingPage = () => {
             newSlide_pricing.appendChild(itsClonable);
             swiperPriceAppendWaiter.appendChild(newSlide_pricing);
           });
-          //––––––––
+
           //-––
           const el_slider = pricingPage_el.querySelector('.fs-rangeslider_handle');
           const el_sliderInput = pricingPage_el.querySelector('[fs-cmsfilter-field="price"]');

@@ -4054,8 +4054,13 @@
             });
           };
           var changePrice = changePrice2;
-          const swiperPriceAppendWaiter = document.querySelector(".swiper-wrapper.is-pricing-page");
+          const allPricingTableCategory = document.querySelectorAll("[pricing-table-category]");
           const allPrcingGeaderClonable = document.querySelectorAll("[prcing-header-clonable]");
+          allPrcingGeaderClonable.forEach((plan, plan_id) => {
+            const tableCategoryFirst = allPricingTableCategory[0];
+            console.log(tableCategoryFirst);
+          });
+          const swiperPriceAppendWaiter = document.querySelector(".swiper-wrapper.is-pricing-page");
           allPrcingGeaderClonable.forEach((clonableElement) => {
             const newSlide_pricing = document.createElement("div");
             newSlide_pricing.classList.add("swiper-slide");
