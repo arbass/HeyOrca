@@ -4158,7 +4158,8 @@
                 contentRowsItems.push(
                   categoryName.nextElementSibling.nextElementSibling.nextElementSibling.nextElementSibling.firstElementChild
                 );
-                newRowParent.appendChild(contentRowsItems[plan_id]);
+                const clonable_contentRowsItems = contentRowsItems[plan_id].cloneNode(true);
+                newRowParent.appendChild(clonable_contentRowsItems);
               });
             });
           });
@@ -4201,6 +4202,9 @@
         }
         changePrice();
         showColumn();
+        window.addEventListener("resize", function() {
+          showColumn();
+        });
       }).catch((error) => {
       });
     }

@@ -138,7 +138,8 @@ export const pricingPage = () => {
                     .nextElementSibling.firstElementChild
                 );
                 //----
-                newRowParent.appendChild(contentRowsItems[plan_id]);
+                const clonable_contentRowsItems = contentRowsItems[plan_id].cloneNode(true);
+                newRowParent.appendChild(clonable_contentRowsItems);
               });
             });
           });
@@ -246,6 +247,9 @@ export const pricingPage = () => {
         }
         changePrice();
         showColumn();
+        window.addEventListener('resize', function () {
+          showColumn();
+        });
       })
       .catch((error) => {
         // console.error('Ошибка', error);
