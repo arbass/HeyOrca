@@ -10,7 +10,7 @@ export const swiper_homePageInit = () => {
   if (currentSwiperSection) {
     const swiper = new Swiper('.swiper.swiper-1_wrapper', {
       direction: 'horizontal',
-      loop: false,
+      loop: true,
       breakpoints: {
         0: {
           slidesPerView: 1.1,
@@ -29,6 +29,11 @@ export const swiper_homePageInit = () => {
 
     const allSlides = currentSwiperSection.querySelectorAll('.swiper-slide');
     const allSlidesTotal = allSlides.length;
+    if (allSlidesTotal > 3) {
+      console.log(allSlidesTotal);
+
+      currentSwiperSection.querySelector('.swiper-1_footer').classList.remove('hide-on-pc');
+    }
     const allShadows = currentSwiperSection.querySelectorAll('.card_item.is-background.is-swiper');
     // allShadows[0].classList.add('is-active');
 
