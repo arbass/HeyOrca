@@ -113,6 +113,7 @@ export const pricingPage = () => {
                   const newRowEl_1_description = document
                     .querySelector('.price-swiper-table_clonable-elemts_category-row_2')
                     .cloneNode(true);
+                  newRowEl_1_description.classList.remove('is-active');
                   newRowEl_1_description.querySelector('.description-content').textContent =
                     currentDescriptionItem_text.textContent;
                   //–––

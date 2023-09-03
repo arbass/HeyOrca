@@ -4142,6 +4142,7 @@
                 const currentDescriptionItem_text = categoryName.nextElementSibling.nextElementSibling.nextElementSibling.nextElementSibling.nextElementSibling.firstElementChild;
                 if (currentDescriptionItem_text.textContent.length > 1) {
                   const newRowEl_1_description = document.querySelector(".price-swiper-table_clonable-elemts_category-row_2").cloneNode(true);
+                  newRowEl_1_description.classList.remove("is-active");
                   newRowEl_1_description.querySelector(".description-content").textContent = currentDescriptionItem_text.textContent;
                   const newRowEl_1_svg = document.querySelector(".price-swiper-table_clonable-elemts_category-row-line-arrow").cloneNode(true);
                   newRowParent.appendChild(newRowEl_1_description);
