@@ -15,10 +15,29 @@ export const pricingPage = () => {
           //––––––––
           //–––––––– table fill
           const allPricingTableCategory = document.querySelectorAll('[pricing-table-category]');
+          const allPricingTableCategoryName = document.querySelectorAll(
+            '[pricing-table-category-name]'
+          );
           const allPrcingGeaderClonable = document.querySelectorAll('[prcing-header-clonable]');
+          allPricingTableCategory.forEach((category, category_id) => {
+            category.setAttribute('pricing-table-category', category.firstElementChild.textContent);
+          });
+          allPricingTableCategoryName.forEach((categoryName, categoryName_id) => {
+            categoryName.setAttribute(
+              'pricing-table-category',
+              categoryName.firstElementChild.textContent
+            );
+          });
           allPrcingGeaderClonable.forEach((plan, plan_id) => {
-            const tableCategoryFirst = allPricingTableCategory[0];
-            console.log(tableCategoryFirst);
+            const columnWaiter = document.querySelector('.price-swiper-table-wrapper');
+            const newColumn = document.createElement('div');
+            newColumn.classList.add('price-swiper-table-column');
+            columnWaiter.append(newColumn);
+            //---
+            const currentCategoryHeaders_array = [];
+            const firstCategoryInTable = allPricingTableCategory[0];
+            console.log('первая категория');
+            console.log(firstCategoryInTable);
           });
           //-–– fill
           //–––––––– swiper fill
