@@ -4197,12 +4197,35 @@
             spaceBetween: 0,
             initialSlide: 2
           });
+          swiper_soc.slideTo(0);
+          setTimeout(function() {
+            swiper_soc.slideTo(1);
+          }, 500);
           swiper_soc.on("slideChange", function() {
             showColumn2();
+          });
+          const allRenderedDescriptionItems = document.querySelectorAll(
+            ".price-swiper-table_clonable-elemts_category-row_2"
+          );
+          allRenderedDescriptionItems.forEach((description) => {
+            const clickableArea = description.closest(
+              ".price-swiper-table_clonable-elemts_category-row"
+            );
+            clickableArea.addEventListener("click", function() {
+              const current_hiddenContent = clickableArea.querySelector(
+                ".price-swiper-table_clonable-elemts_category-row_2"
+              );
+              const current_arrow = clickableArea.querySelector(
+                ".price-swiper-table_clonable-elemts_category-row-line-arrow"
+              );
+              current_hiddenContent.classList.toggle("is-active");
+              current_arrow.classList.toggle("is-active");
+            });
           });
         }
         changePrice();
         showColumn();
+        setTimeout(showColumn, 3e3);
         window.addEventListener("resize", function() {
           showColumn();
         });
