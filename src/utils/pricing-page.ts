@@ -63,6 +63,7 @@ export const pricingPage = () => {
             const columnWaiter = document.querySelector('.price-swiper-table-wrapper');
             const newColumn = document.createElement('div');
             newColumn.classList.add('price-swiper-table-column');
+            newColumn.setAttribute('column-number', plan_id);
             columnWaiter.appendChild(newColumn);
 
             currentCategoryHeaders_array.forEach((categoryHeader, categoryHeader_id) => {
@@ -122,6 +123,22 @@ export const pricingPage = () => {
                   newRowParent.appendChild(newRowEl_1_description);
                   newRowEl_1.appendChild(newRowEl_1_svg);
                 }
+                //---
+                const contentRowsItems = [];
+                contentRowsItems.push(categoryName.nextElementSibling.firstElementChild);
+                contentRowsItems.push(
+                  categoryName.nextElementSibling.nextElementSibling.firstElementChild
+                );
+                contentRowsItems.push(
+                  categoryName.nextElementSibling.nextElementSibling.nextElementSibling
+                    .firstElementChild
+                );
+                contentRowsItems.push(
+                  categoryName.nextElementSibling.nextElementSibling.nextElementSibling
+                    .nextElementSibling.firstElementChild
+                );
+                //----
+                newRowParent.appendChild(contentRowsItems[plan_id]);
               });
             });
           });
