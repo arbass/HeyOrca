@@ -6,6 +6,8 @@ export const timeAccordionComponent = () => {
   const tabComponent = document.querySelector('[time-accordion-component]');
 
   if (tabComponent) {
+    console.log('дыщ');
+
     // Load some attributes from a Content Management System.
     fsAttributes.cmsnest.loading
       .then(() => {

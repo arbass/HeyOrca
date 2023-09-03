@@ -9,6 +9,7 @@ import { pricingPage } from '$utils/pricing-page';
 import { swiper_homePageInit } from '$utils/swiper_home-page';
 import { swiper_storiesInit } from '$utils/swiper_stories';
 import { timeAccordionComponent } from '$utils/time-accordion-component';
+import { timeSection_featurePage } from '$utils/time-accordion-component_feature-page';
 import { webinarForm } from '$utils/webinar-forms';
 
 window.Webflow ||= [];
@@ -25,4 +26,5 @@ window.Webflow.push(() => {
   footerForm();
   webinarForm();
   pricingPage();
+  timeSection_featurePage();
 });
