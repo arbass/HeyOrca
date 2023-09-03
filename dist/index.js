@@ -4150,8 +4150,9 @@
             });
           });
           const swiperPriceAppendWaiter = document.querySelector(".swiper-wrapper.is-pricing-page");
-          allPrcingGeaderClonable.forEach((clonableElement) => {
+          allPrcingGeaderClonable.forEach((clonableElement, clonableElement_id) => {
             const newSlide_pricing = document.createElement("div");
+            newSlide_pricing.setAttribute("swiper-number", clonableElement_id);
             newSlide_pricing.classList.add("swiper-slide");
             newSlide_pricing.classList.add("is-pricing-page");
             const itsClonable = clonableElement.cloneNode(true);
@@ -4180,6 +4181,9 @@
             centeredSlides: true,
             spaceBetween: 0,
             initialSlide: 2
+          });
+          swiper_soc.on("slideChange", function() {
+            console.log("\u0421\u043B\u0430\u0439\u0434 \u0438\u0437\u043C\u0435\u043D\u0438\u043B\u0441\u044F");
           });
         }
         changePrice();

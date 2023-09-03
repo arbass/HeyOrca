@@ -145,8 +145,9 @@ export const pricingPage = () => {
           //-–– fill
           //–––––––– swiper fill
           const swiperPriceAppendWaiter = document.querySelector('.swiper-wrapper.is-pricing-page');
-          allPrcingGeaderClonable.forEach((clonableElement) => {
+          allPrcingGeaderClonable.forEach((clonableElement, clonableElement_id) => {
             const newSlide_pricing = document.createElement('div');
+            newSlide_pricing.setAttribute('swiper-number', clonableElement_id);
             newSlide_pricing.classList.add('swiper-slide');
             newSlide_pricing.classList.add('is-pricing-page');
             const itsClonable = clonableElement.cloneNode(true);
@@ -220,6 +221,12 @@ export const pricingPage = () => {
             initialSlide: 2,
           });
           // ––––––––
+
+          // Добавляем обработчик события на смену слайда
+          swiper_soc.on('slideChange', function () {
+            // Ваш код, который должен выполняться при смене слайда
+            console.log('Слайд изменился');
+          });
         }
         changePrice();
       })
