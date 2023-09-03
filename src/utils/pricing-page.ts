@@ -222,13 +222,30 @@ export const pricingPage = () => {
           });
           // ––––––––
 
+          function showColumn() {
+            setTimeout(function () {
+              const allSlides_price = document.querySelectorAll('.swiper-slide');
+              allSlides_price.forEach((slide, slide_id) => {
+                if (slide.classList.contains('swiper-slide-active')) {
+                  const allRenderedColumns = document.querySelectorAll('[column-number]');
+                  allRenderedColumns.forEach((col) => {
+                    col.classList.add('hide');
+                  });
+                  document
+                    .querySelector('[column-number="' + slide.getAttribute('swiper-number') + '"]')
+                    .classList.remove('hide');
+                }
+              });
+            }, 150);
+          }
+
           // Добавляем обработчик события на смену слайда
           swiper_soc.on('slideChange', function () {
-            // Ваш код, который должен выполняться при смене слайда
-            console.log('Слайд изменился');
+            showColumn();
           });
         }
         changePrice();
+        showColumn();
       })
       .catch((error) => {
         // console.error('Ошибка', error);

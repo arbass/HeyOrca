@@ -4052,8 +4052,21 @@
                 placeholder.textContent = currentCount;
               }
             });
+          }, showColumn2 = function() {
+            setTimeout(function() {
+              const allSlides_price = document.querySelectorAll(".swiper-slide");
+              allSlides_price.forEach((slide2, slide_id) => {
+                if (slide2.classList.contains("swiper-slide-active")) {
+                  const allRenderedColumns = document.querySelectorAll("[column-number]");
+                  allRenderedColumns.forEach((col) => {
+                    col.classList.add("hide");
+                  });
+                  document.querySelector('[column-number="' + slide2.getAttribute("swiper-number") + '"]').classList.remove("hide");
+                }
+              });
+            }, 150);
           };
-          var changePrice = changePrice2;
+          var changePrice = changePrice2, showColumn = showColumn2;
           const allPricingTableCategory = document.querySelectorAll("[pricing-table-category]");
           const allPricingTableCategoryName = document.querySelectorAll(
             "[pricing-table-category-name]"
@@ -4183,10 +4196,11 @@
             initialSlide: 2
           });
           swiper_soc.on("slideChange", function() {
-            console.log("\u0421\u043B\u0430\u0439\u0434 \u0438\u0437\u043C\u0435\u043D\u0438\u043B\u0441\u044F");
+            showColumn2();
           });
         }
         changePrice();
+        showColumn();
       }).catch((error) => {
       });
     }
