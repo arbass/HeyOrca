@@ -31,7 +31,7 @@ export const pricingPage = () => {
           allPrcingGeaderClonable.forEach((plan, plan_id) => {
             //---
             const currentCategoryHeaders_array = [];
-            let currentCategoryNames_array;
+            const currentCategoryNames_arrayParent = [];
             let categoryPointer = allPricingTableCategory[0];
             currentCategoryHeaders_array.push(categoryPointer);
             while (categoryPointer.nextElementSibling) {
@@ -42,7 +42,7 @@ export const pricingPage = () => {
             }
 
             currentCategoryHeaders_array.forEach((categoryHeader) => {
-              currentCategoryNames_array = [];
+              const currentCategoryNames_array = [];
               let categoryPointerName = categoryHeader;
 
               while (
@@ -56,6 +56,8 @@ export const pricingPage = () => {
                   currentCategoryNames_array.push(categoryPointerName);
                 }
               }
+
+              currentCategoryNames_arrayParent.push(currentCategoryNames_array);
             });
             //create elements
             const columnWaiter = document.querySelector('.price-swiper-table-wrapper');
@@ -63,7 +65,7 @@ export const pricingPage = () => {
             newColumn.classList.add('price-swiper-table-column');
             columnWaiter.appendChild(newColumn);
 
-            currentCategoryHeaders_array.forEach((categoryHeader) => {
+            currentCategoryHeaders_array.forEach((categoryHeader, categoryHeader_id) => {
               const newCategoryHeader = document.createElement('div');
               newCategoryHeader.classList.add(
                 'price-swiper-table_clonable-elemts_category-row-header'
@@ -75,8 +77,53 @@ export const pricingPage = () => {
 
               newCategoryHeader.appendChild(newCategoryHeader_title);
               newColumn.appendChild(newCategoryHeader);
+
+              let oddStatus_odd = true;
+
+              currentCategoryNames_arrayParent[categoryHeader_id].forEach((categoryName, id) => {
+                const currentCategoryName = categoryName.getAttribute(
+                  'pricing-table-category-name'
+                );
+                const newRowParent = document.createElement('div');
+                newRowParent.classList.add('price-swiper-table_clonable-elemts_category-row');
+                if (oddStatus_odd) {
+                  newRowParent.classList.add('is-odd');
+                  oddStatus_odd = false;
+                } else {
+                  oddStatus_odd = true;
+                }
+                //---
+                const newRowEl_1 = document.createElement('div');
+                newRowEl_1.classList.add('price-swiper-table_clonable-elemts_category-row-line');
+                //---
+                const newRowEl_1_text = document.createElement('div');
+                newRowEl_1.classList.add('text-size-link', 'text-weight-medium');
+                newRowEl_1_text.textContent = currentCategoryName;
+                //---
+                //-----––––––––
+                newColumn.appendChild(newRowParent);
+                newRowParent.appendChild(newRowEl_1);
+                newRowEl_1.appendChild(newRowEl_1_text);
+                //---
+                const currentDescriptionItem_text =
+                  categoryName.nextElementSibling.nextElementSibling.nextElementSibling
+                    .nextElementSibling.nextElementSibling.firstElementChild;
+                if (currentDescriptionItem_text.textContent.length > 1) {
+                  const newRowEl_1_description = document
+                    .querySelector('.price-swiper-table_clonable-elemts_category-row_2')
+                    .cloneNode(true);
+                  newRowEl_1_description.querySelector('.description-content').textContent =
+                    currentDescriptionItem_text.textContent;
+                  //–––
+                  const newRowEl_1_svg = document
+                    .querySelector('.price-swiper-table_clonable-elemts_category-row-line-arrow')
+                    .cloneNode(true);
+                  //–––
+                  newRowParent.appendChild(newRowEl_1_description);
+                  newRowEl_1.appendChild(newRowEl_1_svg);
+                }
+              });
             });
-            console.log(currentCategoryNames_array);
           });
           //-–– fill
           //–––––––– swiper fill
