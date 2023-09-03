@@ -4069,12 +4069,8 @@
             );
           });
           allPrcingGeaderClonable.forEach((plan, plan_id) => {
-            const columnWaiter = document.querySelector(".price-swiper-table-wrapper");
-            const newColumn = document.createElement("div");
-            newColumn.classList.add("price-swiper-table-column");
-            columnWaiter.append(newColumn);
             const currentCategoryHeaders_array = [];
-            const currentCategoryName_array = [];
+            let currentCategoryNames_array;
             let categoryPointer = allPricingTableCategory[0];
             currentCategoryHeaders_array.push(categoryPointer);
             while (categoryPointer.nextElementSibling) {
@@ -4084,7 +4080,7 @@
               }
             }
             currentCategoryHeaders_array.forEach((categoryHeader) => {
-              const currentCategoryNames_array = [];
+              currentCategoryNames_array = [];
               let categoryPointerName = categoryHeader;
               while (categoryPointerName.nextElementSibling && categoryPointerName.nextElementSibling.hasAttribute("pricing-table-category") === false) {
                 categoryPointerName = categoryPointerName.nextElementSibling;
@@ -4093,6 +4089,22 @@
                 }
               }
             });
+            const columnWaiter = document.querySelector(".price-swiper-table-wrapper");
+            const newColumn = document.createElement("div");
+            newColumn.classList.add("price-swiper-table-column");
+            columnWaiter.appendChild(newColumn);
+            currentCategoryHeaders_array.forEach((categoryHeader) => {
+              const newCategoryHeader = document.createElement("div");
+              newCategoryHeader.classList.add(
+                "price-swiper-table_clonable-elemts_category-row-header"
+              );
+              const newCategoryHeader_title = document.createElement("div");
+              newCategoryHeader_title.classList.add("text-size-link", "text-weight-medium");
+              newCategoryHeader_title.textContent = categoryHeader.getAttribute("pricing-table-category");
+              newCategoryHeader.appendChild(newCategoryHeader_title);
+              newColumn.appendChild(newCategoryHeader);
+            });
+            console.log(currentCategoryNames_array);
           });
           const swiperPriceAppendWaiter = document.querySelector(".swiper-wrapper.is-pricing-page");
           allPrcingGeaderClonable.forEach((clonableElement) => {
