@@ -4,6 +4,7 @@ import { sectionColFeature_2 } from '$utils/feature-cards-tunnel_2';
 import { featuresCardsList } from '$utils/features-cards_list';
 import { filterFirstButtonClick } from '$utils/filter-first-button-click';
 import { footerForm } from '$utils/footer-form';
+import { masonryGrid } from '$utils/masonry';
 import { nestLinkPervent } from '$utils/nest-links-pervent';
 import { pricingPage } from '$utils/pricing-page';
 import { swiper_homePageInit } from '$utils/swiper_home-page';
@@ -27,4 +28,5 @@ window.Webflow.push(() => {
   webinarForm();
   pricingPage();
   timeSection_featurePage();
+  masonryGrid();
 });
