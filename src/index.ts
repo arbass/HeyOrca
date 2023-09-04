@@ -4,6 +4,7 @@ import { sectionColFeature_2 } from '$utils/feature-cards-tunnel_2';
 import { featuresCardsList } from '$utils/features-cards_list';
 import { filterFirstButtonClick } from '$utils/filter-first-button-click';
 import { footerForm } from '$utils/footer-form';
+import { floatingInput } from '$utils/form_floatin-inputs';
 import { formDropdown } from '$utils/forms-dropdown';
 import { masonryGrid } from '$utils/masonry';
 import { nestLinkPervent } from '$utils/nest-links-pervent';
@@ -33,4 +34,5 @@ window.Webflow.push(() => {
   masonryGrid();
   popupCloseHelper();
   formDropdown();
+  floatingInput();
 });

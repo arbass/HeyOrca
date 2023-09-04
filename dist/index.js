@@ -110,6 +110,25 @@
     }
   };
 
+  // src/utils/form_floatin-inputs.ts
+  var floatingInput = () => {
+    const floatingInput_el = document.querySelector("form");
+    if (floatingInput_el) {
+      const allFloatingElements = document.querySelectorAll(".floating-label");
+      allFloatingElements.forEach((floatLabel) => {
+        const currentInput = floatLabel.previousElementSibling;
+        currentInput.addEventListener("focus", function() {
+          floatLabel.classList.add("is-active");
+        });
+        currentInput.addEventListener("blur", function() {
+          if (currentInput.value == "") {
+            floatLabel.classList.remove("is-active");
+          }
+        });
+      });
+    }
+  };
+
   // src/utils/forms-dropdown.ts
   var formDropdown = () => {
     const formDropdown_el = document.querySelector(".input-wrapper.is-dropdown");
@@ -118,7 +137,6 @@
       allDropdownItems.forEach((el) => {
         el.addEventListener("mousedown", function() {
           document.querySelector(".form-ind-type-name").textContent = el.querySelector("input").getAttribute("value");
-          console.log(el.querySelector("input"));
           document.querySelector(".form-ind-type-name").classList.add("text-color-gray-900");
         });
       });
@@ -4661,6 +4679,7 @@
     masonryGrid();
     popupCloseHelper();
     formDropdown();
+    floatingInput();
   });
 })();
 //# sourceMappingURL=index.js.map
