@@ -4489,6 +4489,36 @@
       "[time-accordion-component-feature-page] .pc"
     );
     if (timeSection_featurePage_el) {
+      let clearAllAnimation2 = function() {
+        const currentLoader_all = timeSection_featurePage_el.querySelectorAll(
+          ".time-accordion_widget-content-row-progress"
+        );
+        const currentTextContent_all = timeSection_featurePage_el.querySelectorAll(
+          ".is-time-accordion_widget-content-row-col"
+        );
+        currentLoader_all.forEach((el) => {
+          el.classList.remove("animated");
+        });
+        currentTextContent_all.forEach((el) => {
+          el.classList.remove("animated");
+        });
+      }, startShowAcordion2 = function() {
+        clearAllAnimation2();
+        const currentLoader = rowPointer.querySelector(".time-accordion_widget-content-row-progress");
+        const currentTextContent = rowPointer.querySelector(
+          ".is-time-accordion_widget-content-row-col"
+        );
+        currentLoader.classList.add("animated");
+        currentTextContent.classList.add("animated");
+        if (rowPointer.nextElementSibling) {
+          rowPointer = rowPointer.nextElementSibling;
+        } else {
+          rowPointer = rowStarter;
+        }
+      };
+      var clearAllAnimation = clearAllAnimation2, startShowAcordion = startShowAcordion2;
+      let startShowAcordion_interval;
+      const startShowAcordion_interval_duration = 3500;
       const allRows = timeSection_featurePage_el.querySelectorAll(
         ".time-accordion_widget-content-row"
       );
@@ -4507,8 +4537,28 @@
       rowsArray.forEach((row) => {
         rowsWrapper.appendChild(row);
       });
-      for (let i = 0; i < 5; i++) {
-      }
+      const allRowsNew = timeSection_featurePage_el.querySelectorAll(
+        ".time-accordion_widget-content-row"
+      );
+      const rowStarter = allRowsNew[0];
+      rowStarter.classList.add("is-active");
+      let rowPointer = rowStarter;
+      startShowAcordion_interval = setInterval(
+        startShowAcordion2,
+        startShowAcordion_interval_duration
+      );
+      allRows.forEach((row) => {
+        row.addEventListener("click", function() {
+          rowPointer = row;
+          clearAllAnimation2();
+          startShowAcordion2();
+          clearInterval(startShowAcordion_interval);
+          startShowAcordion_interval = setInterval(
+            startShowAcordion2,
+            startShowAcordion_interval_duration
+          );
+        });
+      });
     }
   };
 
