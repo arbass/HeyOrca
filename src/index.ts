@@ -6,6 +6,7 @@ import { filterFirstButtonClick } from '$utils/filter-first-button-click';
 import { footerForm } from '$utils/footer-form';
 import { masonryGrid } from '$utils/masonry';
 import { nestLinkPervent } from '$utils/nest-links-pervent';
+import { popupCloseHelper } from '$utils/popup-close-helper';
 import { pricingPage } from '$utils/pricing-page';
 import { swiper_homePageInit } from '$utils/swiper_home-page';
 import { swiper_storiesInit } from '$utils/swiper_stories';
@@ -29,4 +30,5 @@ window.Webflow.push(() => {
   pricingPage();
   timeSection_featurePage();
   masonryGrid();
+  popupCloseHelper();
 });
