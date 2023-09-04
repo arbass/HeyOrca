@@ -27,5 +27,9 @@ export const timeSection_featurePage = () => {
     rowsArray.forEach((row) => {
       rowsWrapper.appendChild(row);
     });
+
+    for (let i = 0; i < 5; i++) {
+      // Ваш код выполняется здесь
+    }
   }
 };
