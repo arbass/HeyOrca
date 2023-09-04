@@ -64,6 +64,11 @@
         const collectionItemView_card_2 = collectionItem.querySelector(".container-large:last-child");
         if (getComputedStyle(collectionItem).display === "block") {
           collectionItemView_card_2.classList.add("hide");
+          const acordionItem = document.querySelector(
+            ".section_time-accordion .visual-with-shadow is-col"
+          );
+          if (acordionItem) {
+          }
         } else {
           collectionItemView_card_1.classList.add("hide");
         }
