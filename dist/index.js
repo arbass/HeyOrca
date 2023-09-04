@@ -119,6 +119,7 @@
         el.addEventListener("mousedown", function() {
           document.querySelector(".form-ind-type-name").textContent = el.querySelector("input").getAttribute("value");
           console.log(el.querySelector("input"));
+          document.querySelector(".form-ind-type-name").classList.add("text-color-gray-900");
         });
       });
     }
