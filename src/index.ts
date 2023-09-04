@@ -4,6 +4,7 @@ import { sectionColFeature_2 } from '$utils/feature-cards-tunnel_2';
 import { featuresCardsList } from '$utils/features-cards_list';
 import { filterFirstButtonClick } from '$utils/filter-first-button-click';
 import { footerForm } from '$utils/footer-form';
+import { formDropdown } from '$utils/forms-dropdown';
 import { masonryGrid } from '$utils/masonry';
 import { nestLinkPervent } from '$utils/nest-links-pervent';
 import { popupCloseHelper } from '$utils/popup-close-helper';
@@ -31,4 +32,5 @@ window.Webflow.push(() => {
   timeSection_featurePage();
   masonryGrid();
   popupCloseHelper();
+  formDropdown();
 });
