@@ -5,6 +5,7 @@ export const timeSection_featurePage = () => {
     '[time-accordion-component-feature-page] .pc'
   );
   if (timeSection_featurePage_el) {
+    const visualWrapper = timeSection_featurePage_el.querySelector('.cl_visual-with-shadow_object');
     let startShowAcordion_interval;
     const startShowAcordion_interval_duration = 3500;
     const allRows = timeSection_featurePage_el.querySelectorAll(
@@ -50,8 +51,21 @@ export const timeSection_featurePage = () => {
         el.classList.remove('animated');
       });
     }
+    function clearAllImages() {
+      const allImages = timeSection_featurePage_el.querySelectorAll(
+        '.pc .visual-with-shadow_object'
+      );
+      allImages.forEach((el) => {
+        el.classList.add('hide');
+      });
+    }
     function startShowAcordion() {
       clearAllAnimation();
+      clearAllImages();
+      const currentOrder = rowPointer.getAttribute('order');
+      visualWrapper.querySelector('[order="' + currentOrder + '"]').classList.remove('hide');
+
+      timeSection_featurePage_el.classList.remove('hide');
       const currentLoader = rowPointer.querySelector('.time-accordion_widget-content-row-progress');
       const currentTextContent = rowPointer.querySelector(
         '.is-time-accordion_widget-content-row-col'
@@ -73,6 +87,7 @@ export const timeSection_featurePage = () => {
       row.addEventListener('click', function () {
         rowPointer = row;
         clearAllAnimation();
+        clearAllImages();
         startShowAcordion();
         clearInterval(startShowAcordion_interval);
 
@@ -82,5 +97,8 @@ export const timeSection_featurePage = () => {
         );
       });
     });
+    clearAllAnimation();
+    clearAllImages();
+    startShowAcordion();
   }
 };

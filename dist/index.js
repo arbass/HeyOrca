@@ -4502,8 +4502,19 @@
         currentTextContent_all.forEach((el) => {
           el.classList.remove("animated");
         });
+      }, clearAllImages2 = function() {
+        const allImages = timeSection_featurePage_el.querySelectorAll(
+          ".pc .visual-with-shadow_object"
+        );
+        allImages.forEach((el) => {
+          el.classList.add("hide");
+        });
       }, startShowAcordion2 = function() {
         clearAllAnimation2();
+        clearAllImages2();
+        const currentOrder = rowPointer.getAttribute("order");
+        visualWrapper.querySelector('[order="' + currentOrder + '"]').classList.remove("hide");
+        timeSection_featurePage_el.classList.remove("hide");
         const currentLoader = rowPointer.querySelector(".time-accordion_widget-content-row-progress");
         const currentTextContent = rowPointer.querySelector(
           ".is-time-accordion_widget-content-row-col"
@@ -4516,7 +4527,8 @@
           rowPointer = rowStarter;
         }
       };
-      var clearAllAnimation = clearAllAnimation2, startShowAcordion = startShowAcordion2;
+      var clearAllAnimation = clearAllAnimation2, clearAllImages = clearAllImages2, startShowAcordion = startShowAcordion2;
+      const visualWrapper = timeSection_featurePage_el.querySelector(".cl_visual-with-shadow_object");
       let startShowAcordion_interval;
       const startShowAcordion_interval_duration = 3500;
       const allRows = timeSection_featurePage_el.querySelectorAll(
@@ -4551,6 +4563,7 @@
         row.addEventListener("click", function() {
           rowPointer = row;
           clearAllAnimation2();
+          clearAllImages2();
           startShowAcordion2();
           clearInterval(startShowAcordion_interval);
           startShowAcordion_interval = setInterval(
@@ -4559,6 +4572,9 @@
           );
         });
       });
+      clearAllAnimation2();
+      clearAllImages2();
+      startShowAcordion2();
     }
   };
 
