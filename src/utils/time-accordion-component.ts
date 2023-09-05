@@ -159,7 +159,7 @@ export const timeAccordionComponent = () => {
 
           setTimeout(() => {
             findActiveTab();
-          }, 500);
+          }, 300);
 
           function handleTabsInViewport(entries) {
             entries.forEach((entry) => {
@@ -190,7 +190,7 @@ export const timeAccordionComponent = () => {
             observer_2.observe(tabsElement);
             outOfViewportObserver.observe(tabsElement);
           }
-        }, 1500);
+        }, 300);
       })
       .catch((error) => {
         console.error('Error:', error);
