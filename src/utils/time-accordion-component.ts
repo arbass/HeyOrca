@@ -229,7 +229,7 @@ export const timeAccordionComponent = () => {
             observer_2.observe(tabsElement);
             outOfViewportObserver.observe(tabsElement);
           }
-        }, 1200);
+        }, 1500);
       })
       .catch((error) => {
         console.error('Error:', error);
