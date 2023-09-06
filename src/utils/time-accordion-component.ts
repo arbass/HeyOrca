@@ -93,12 +93,18 @@ export const timeAccordionComponent = () => {
               row.classList.remove('active');
             });
             const activeTab = document.querySelector('.time-accordion_inner .w--tab-active');
-            const activeTab_ctaAppendWaiter = activeTab.querySelector('.button-append-waiter');
-            const activeTab_ctaAppendSrc = activeTab.querySelector('.button-append-src');
-            activeTab_ctaAppendWaiter.appendChild(activeTab_ctaAppendSrc);
-            const tabsRows = activeTab.querySelectorAll('.cl-i_time-accordion_widget-content-row');
-            tabsRows[0].classList.add('active');
-            rowsOrderFromActive();
+            if (activeTab) {
+              const activeTab_ctaAppendWaiter = activeTab.querySelector('.button-append-waiter');
+              const activeTab_ctaAppendSrc = activeTab.querySelector('.button-append-src');
+              activeTab_ctaAppendWaiter.appendChild(activeTab_ctaAppendSrc);
+              const tabsRows = activeTab.querySelectorAll(
+                '.cl-i_time-accordion_widget-content-row'
+              );
+              tabsRows[0].classList.add('active');
+              rowsOrderFromActive();
+            } else {
+              console.log('we cant find active tab');
+            }
           }
 
           const allCtaAppendSrc = document.querySelectorAll('.button-append-src a');
