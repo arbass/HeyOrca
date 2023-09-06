@@ -2,14 +2,22 @@ export const timeAccordionComponent = () => {
   const tabComponent = document.querySelector('[time-accordion-component]');
 
   if (tabComponent) {
-    fsAttributes.cmsnest.loading
-      .then(() => {
+    const tabsReadyInterval = setInterval(function () {
+      const activeTabCheck = document.querySelector('.time-accordion_inner .w--tab-active');
+
+      const tabsRowsCheck = activeTabCheck.querySelectorAll(
+        '.cl-i_time-accordion_widget-content-row'
+      );
+
+      if (tabsRowsCheck.length) {
+        clearInterval(tabsReadyInterval);
+
         setTimeout(function () {
           setTimeout(function () {
             const sectionAccordionComponent_elOp =
               document.querySelector('.section_time-accordion');
             sectionAccordionComponent_elOp.classList.remove('hide-opacity');
-          }, 1500);
+          }, 300);
 
           let rowInterval;
 
@@ -93,6 +101,7 @@ export const timeAccordionComponent = () => {
               row.classList.remove('active');
             });
             const activeTab = document.querySelector('.time-accordion_inner .w--tab-active');
+
             if (activeTab) {
               const activeTab_ctaAppendWaiter = activeTab.querySelector('.button-append-waiter');
               const activeTab_ctaAppendSrc = activeTab.querySelector('.button-append-src');
@@ -100,10 +109,11 @@ export const timeAccordionComponent = () => {
               const tabsRows = activeTab.querySelectorAll(
                 '.cl-i_time-accordion_widget-content-row'
               );
+
               tabsRows[0].classList.add('active');
               rowsOrderFromActive();
             } else {
-              console.log('we cant find active tab');
+              // console.log('we cant find active tab');
             }
           }
 
@@ -197,9 +207,9 @@ export const timeAccordionComponent = () => {
             outOfViewportObserver.observe(tabsElement);
           }
         }, 300);
-      })
-      .catch((error) => {
-        console.error('Error:', error);
-      });
+      }
+    }, 300);
+
+    //–––––
   }
 };
