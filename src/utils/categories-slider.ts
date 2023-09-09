@@ -6,6 +6,8 @@ export const categoriesSlider = () => {
     const container = document.querySelector('.time-accordion_nav.is-webinars.is-blog');
     const arrowRight = document.querySelector('.cat-arrow-right');
     const arrowLeft = document.querySelector('.cat-arrow-left');
+    const gradientLeft = document.querySelector('.category-gradient.is-left');
+    const gradientRight = document.querySelector('.category-gradient.is-right');
     let isDragging = false;
     let startX;
     let scrollLeft;
@@ -47,11 +49,15 @@ export const categoriesSlider = () => {
 
     function updateArrowVisibility() {
       if (container.scrollLeft === 0 && !isScrolledRight) {
-        arrowLeft.classList.add('hide'); // Этот блок кода управляет видимостью стрелки "Влево"
+        arrowLeft.classList.add('hide');
+        gradientLeft.classList.add('hide');
         arrowRight.classList.remove('hide');
+        gradientRight.classList.remove('hide');
       } else if (container.scrollLeft + container.clientWidth >= container.scrollWidth) {
         arrowLeft.classList.remove('hide');
-        arrowRight.classList.add('hide'); // Этот блок кода управляет видимостью стрелки "Вправо"
+        gradientLeft.classList.remove('hide');
+        arrowRight.classList.add('hide');
+        gradientRight.classList.add('hide');
       } else {
         arrowLeft.classList.remove('hide');
         arrowRight.classList.remove('hide');
@@ -70,7 +76,7 @@ export const categoriesSlider = () => {
           if (currentScroll > targetScroll) {
             currentScroll = targetScroll;
           }
-          container.scrollLeft = currentScroll; // Этот блок кода отвечает за анимацию прокрутки вправо
+          container.scrollLeft = currentScroll;
         } else {
           clearInterval(scrollInterval);
         }
@@ -89,7 +95,7 @@ export const categoriesSlider = () => {
           if (currentScroll < targetScroll) {
             currentScroll = targetScroll;
           }
-          container.scrollLeft = currentScroll; // Этот блок кода отвечает за анимацию прокрутки влево
+          container.scrollLeft = currentScroll;
         } else {
           clearInterval(scrollInterval);
         }
