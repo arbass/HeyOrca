@@ -5,15 +5,23 @@ export const floatingInput = () => {
   if (floatingInput_el) {
     const allFloatingElements = document.querySelectorAll('.floating-label');
     allFloatingElements.forEach((floatLabel) => {
-      const currentInput = floatLabel.previousElementSibling;
-      currentInput.addEventListener('focus', function () {
-        floatLabel.classList.add('is-active');
-      });
-      currentInput.addEventListener('blur', function () {
-        if (currentInput.value == '') {
-          floatLabel.classList.remove('is-active');
-        }
-      });
+      function floatMagic() {
+        currentInput.addEventListener('focus', function () {
+          floatLabel.classList.add('is-active');
+        });
+        currentInput.addEventListener('blur', function () {
+          if (currentInput.value == '') {
+            floatLabel.classList.remove('is-active');
+          }
+        });
+      }
+      let currentInput = floatLabel.previousElementSibling;
+      if (currentInput) {
+        floatMagic();
+      } else {
+        currentInput = floatLabel.nextElementSibling;
+        floatMagic();
+      }
     });
   }
 };
