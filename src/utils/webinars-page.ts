@@ -6,6 +6,8 @@ export const webinarPageStart = () => {
     const webinarChecker = setInterval(webinarCardsMagic, 300);
     function webinarCardsMagic() {
       const winbinarsWidget_el = document.querySelector('.bigmarker-widget-out-box');
+      winbinarsWidget_el?.removeAttribute('style');
+
       if (winbinarsWidget_el) {
         clearInterval(webinarChecker);
         const sectionWebinarGrid = document.querySelector('.webinars_list.is-clonable-parent');
@@ -51,7 +53,12 @@ export const webinarPageStart = () => {
         });
 
         //–––––––
-        //у элемента webinarPageStart_el все дочерние и вложенные элементы кроме тех у которых есть класс register_form_in_modal удалить классы
+        winbinarsWidget_el.querySelector('.bigmarker-widget-title').textContent = '';
+        winbinarsWidget_el.querySelector('.bigmarker-widget-box').removeAttribute('style');
+        const webinarEmbed_cards = winbinarsWidget_el.querySelectorAll('li');
+        webinarEmbed_cards.forEach((el) => {
+          el.classList.add('hide');
+        });
       }
     }
   }
