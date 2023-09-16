@@ -16,6 +16,7 @@ import { swiper_storiesInit } from '$utils/swiper_stories';
 import { timeAccordionComponent } from '$utils/time-accordion-component';
 import { timeSection_featurePage } from '$utils/time-accordion-component_feature-page';
 import { webinarForm } from '$utils/webinar-forms';
+import { webinarPageStart } from '$utils/webinars-page';
 
 window.Webflow ||= [];
 window.Webflow.push(() => {
@@ -37,4 +38,5 @@ window.Webflow.push(() => {
   formDropdown();
   floatingInput();
   categoriesSlider();
+  webinarPageStart();
 });
