@@ -36,7 +36,7 @@ export const webinarPageStart = () => {
           const cloneAbleCard_name = cloneAbleCard.querySelector('h3');
           const cloneAbleCard_time = cloneAbleCard.querySelector('.webinar-date-text');
           const cloneAbleCard_button = cloneAbleCard.querySelector(
-            '.card_read-more-button.is-webinar'
+            '.card_read-more-button_absolute'
           );
           const cloneAbleCard_image = cloneAbleCard.querySelector('img');
 
@@ -46,7 +46,6 @@ export const webinarPageStart = () => {
           cloneAbleCard_button.setAttribute('click-id-fake', id);
           cloneAbleCard_button.addEventListener('click', function () {
             currentButton.click();
-            console.log(currentButton);
           });
 
           cloneAbleCard_waiter.append(cloneAbleCard);
