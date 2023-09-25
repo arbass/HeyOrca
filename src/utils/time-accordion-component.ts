@@ -6,14 +6,14 @@ export const timeAccordionComponent = () => {
     window.fsAttributes.push([
       'cmsnest',
       (listInstances) => {
-        console.log('cmsnest Successfully loaded!');
+        // console.log('cmsnest Successfully loaded!');
         window.fsAttributes.cmstabs.init();
       },
     ]);
     window.fsAttributes.push([
       'cmstabs',
       (listInstances) => {
-        console.log('cmstabs Successfully loaded!');
+        // console.log('cmstabs Successfully loaded!');
         const tabsReadyInterval = setInterval(function () {
           const activeTabCheck = document.querySelector('.time-accordion_inner .w--tab-active');
 
@@ -229,6 +229,66 @@ export const timeAccordionComponent = () => {
         }, 300);
 
         //–––––
+        //получить список всех табов
+        const dropDownLinks_waiter = document.querySelector('.select-sticky_dropdown-list');
+        const rendered_allTabs = document.querySelectorAll('.w-tab-link');
+        //на основе табов создать элементы для дропдауна
+        rendered_allTabs.forEach((rendered_tab) => {
+          const currentTabTitle = rendered_tab.querySelector('.button').textContent;
+          rendered_tab.setAttribute('current-tab-name', currentTabTitle);
+          const cloneAbleDropDownLink = document
+            .querySelector('.select-sticky_dropdown-list-item')
+            .cloneNode(true);
+          cloneAbleDropDownLink.setAttribute('current-dropdownlink-name', currentTabTitle);
+          cloneAbleDropDownLink.classList.remove('hide');
+          cloneAbleDropDownLink.textContent = currentTabTitle;
+          dropDownLinks_waiter.append(cloneAbleDropDownLink);
+        });
+        //слушать клики по элементам dropdown
+        const allClonedDropdownLinks = document.querySelectorAll(
+          '.select-sticky_dropdown-list-item'
+        );
+        allClonedDropdownLinks.forEach((link) => {
+          link.addEventListener('click', function () {
+            const currentName = link.getAttribute('current-dropdownlink-name');
+            document.querySelector('[current-tab-name="' + currentName + '"]').click();
+            document.querySelector('.anc-click').click();
+          });
+        });
+
+        //слушать изменение активных табов, при изменении менять активный класс вдропдауне и название в меню
+        function callback(mutationsList, observer) {
+          for (const mutation of mutationsList) {
+            if (mutation.type === 'attributes' && mutation.attributeName === 'class') {
+              get_rendered_activeTab();
+            }
+          }
+        }
+
+        const observer = new MutationObserver(callback);
+
+        rendered_allTabs.forEach((element) => {
+          observer.observe(element, { attributes: true });
+        });
+
+        //определить активный таб
+        function get_rendered_activeTab() {
+          const currentActiveTab = document.querySelector('.w-tab-link.w--current');
+          const currentActiveTabName = currentActiveTab.textContent;
+          const currentActiveDropDownName = document.querySelector(
+            '.select-sticky_dropdown-toggle-text'
+          );
+          currentActiveDropDownName.textContent = currentActiveTabName;
+          const currentAtributeName = currentActiveTab.getAttribute('current-tab-name');
+          allClonedDropdownLinks.forEach((link) => {
+            link.classList.remove('is-active');
+          });
+          document
+            .querySelector('[current-dropdownlink-name="' + currentAtributeName + '"]')
+            .classList.add('is-active');
+        }
+
+        get_rendered_activeTab();
       },
     ]);
   }
