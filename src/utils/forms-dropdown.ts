@@ -1,5 +1,3 @@
-/* eslint-disable no-console */
-
 export const formDropdown = () => {
   const formDropdown_el = document.querySelector('.input-wrapper.is-dropdown');
   if (formDropdown_el) {

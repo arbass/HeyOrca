@@ -7,6 +7,7 @@ import { filterFirstButtonClick } from '$utils/filter-first-button-click';
 import { footerForm } from '$utils/footer-form';
 import { floatingInput } from '$utils/form_floatin-inputs';
 import { formDropdown } from '$utils/forms-dropdown';
+import { globalVariables } from '$utils/global-variables';
 import { masonryGrid } from '$utils/masonry';
 import { nestLinkPervent } from '$utils/nest-links-pervent';
 import { popupCloseHelper } from '$utils/popup-close-helper';
@@ -20,6 +21,7 @@ import { webinarPageStart } from '$utils/webinars-page';
 
 window.Webflow ||= [];
 window.Webflow.push(() => {
+  globalVariables();
   nestLinkPervent();
   timeAccordionComponent();
   swiper_homePageInit();
