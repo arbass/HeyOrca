@@ -1,3 +1,5 @@
+import { restartWebflow } from '@finsweet/ts-utils';
+
 export const globalVariables = () => {
   document.querySelectorAll('[data-variable]').forEach((element) => {
     const variableName = element.innerHTML.split('=')[0].trim();
@@ -7,5 +9,6 @@ export const globalVariables = () => {
     const regex = new RegExp(`${variableNameEscaped}`, 'g');
 
     document.body.innerHTML = document.body.innerHTML.replace(regex, variableValue);
+    restartWebflow();
   });
 };
