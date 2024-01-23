@@ -21,6 +21,7 @@ import { webinarPageStart } from '$utils/webinars-page';
 
 window.Webflow ||= [];
 window.Webflow.push(() => {
+  globalVariables();
   nestLinkPervent();
   timeAccordionComponent();
   swiper_homePageInit();
@@ -40,5 +41,4 @@ window.Webflow.push(() => {
   floatingInput();
   categoriesSlider();
   webinarPageStart();
-  globalVariables();
 });
