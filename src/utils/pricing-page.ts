@@ -283,5 +283,55 @@ export const pricingPage = () => {
       .catch((error) => {
         // console.error('Ошибка', error);
       });
+
+    setTimeout(function () {
+      if (document.querySelector('[page-name="price-2024"]')) {
+        const targetElement = document.querySelector('[fs-rangeslider-element="display-value"]');
+
+        const handleChange = function (mutationsList, observer) {
+          for (const mutation of mutationsList) {
+            if (mutation.type === 'childList' || mutation.type === 'characterData') {
+              const newValue = targetElement.textContent || targetElement.innerText;
+
+              const AllCtaButtons = document.querySelectorAll('[price-cta-button]');
+              const AllCtaButtons_dynamic = document.querySelectorAll(
+                '[price-cta-button="dynamic-links"]'
+              );
+
+              if (newValue >= '6') {
+                targetElement.textContent = '6+';
+                AllCtaButtons.forEach((button) => {
+                  button.classList.remove('is-secondary');
+                });
+                AllCtaButtons_dynamic.forEach((button) => {
+                  button.setAttribute(
+                    'href',
+                    document.querySelector('[dynamic-link-book]').getAttribute('dynamic-link-book')
+                  );
+                });
+              } else {
+                AllCtaButtons.forEach((button) => {
+                  button.classList.add('is-secondary');
+                });
+                AllCtaButtons_dynamic.forEach((button) => {
+                  button.setAttribute(
+                    'href',
+                    document
+                      .querySelector('[dynamic-link-free-trial]')
+                      .getAttribute('dynamic-link-free-trial')
+                  );
+                });
+              }
+            }
+          }
+        };
+
+        const observer = new MutationObserver(handleChange);
+
+        const config = { childList: true, characterData: true, subtree: true };
+
+        observer.observe(targetElement, config);
+      }
+    }, 500);
   }
 };
