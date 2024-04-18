@@ -16,6 +16,7 @@ import { swiper_homePageInit } from '$utils/swiper_home-page';
 import { swiper_storiesInit } from '$utils/swiper_stories';
 import { timeAccordionComponent } from '$utils/time-accordion-component';
 import { timeSection_featurePage } from '$utils/time-accordion-component_feature-page';
+import { func_utmChecker } from '$utils/utm-check';
 import { webinarForm } from '$utils/webinar-forms';
 import { webinarPageStart } from '$utils/webinars-page';
 
@@ -41,4 +42,5 @@ window.Webflow.push(() => {
   floatingInput();
   categoriesSlider();
   webinarPageStart();
+  func_utmChecker();
 });
