@@ -298,30 +298,32 @@ export const pricingPage = () => {
                 '[price-cta-button="dynamic-links"]'
               );
 
-              if (newValue >= '6') {
-                targetElement.textContent = '6+';
-                AllCtaButtons.forEach((button) => {
-                  button.classList.remove('is-secondary');
-                });
-                AllCtaButtons_dynamic.forEach((button) => {
-                  button.setAttribute(
-                    'href',
-                    document.querySelector('[dynamic-link-book]').getAttribute('dynamic-link-book')
-                  );
-                });
-              } else {
-                AllCtaButtons.forEach((button) => {
-                  button.classList.add('is-secondary');
-                });
-                AllCtaButtons_dynamic.forEach((button) => {
-                  button.setAttribute(
-                    'href',
-                    document
-                      .querySelector('[dynamic-link-free-trial]')
-                      .getAttribute('dynamic-link-free-trial')
-                  );
-                });
-              }
+              targetElement.textContent = newValue;
+
+              // if (newValue >= '6') {
+              //   targetElement.textContent = '6+';
+              //   AllCtaButtons.forEach((button) => {
+              //     button.classList.remove('is-secondary');
+              //   });
+              //   AllCtaButtons_dynamic.forEach((button) => {
+              //     button.setAttribute(
+              //       'href',
+              //       document.querySelector('[dynamic-link-book]').getAttribute('dynamic-link-book')
+              //     );
+              //   });
+              // } else {
+              //   AllCtaButtons.forEach((button) => {
+              //     button.classList.add('is-secondary');
+              //   });
+              //   AllCtaButtons_dynamic.forEach((button) => {
+              //     button.setAttribute(
+              //       'href',
+              //       document
+              //         .querySelector('[dynamic-link-free-trial]')
+              //         .getAttribute('dynamic-link-free-trial')
+              //     );
+              //   });
+              // }
             }
           }
         };
