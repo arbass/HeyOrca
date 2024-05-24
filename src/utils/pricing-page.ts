@@ -433,4 +433,5 @@ export const pricingPage = () => {
   pricingRadioGroup[0].addEventListener('change', handleChangePricing);
   pricingRadioGroup[1].addEventListener('change', handleChangePricing);
   pricingToggle.addEventListener('change', handleChangePricing);
+  console.log('pricing-page');
 };
