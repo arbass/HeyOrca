@@ -363,15 +363,13 @@ export const pricingPage = () => {
   const basicDemoLink = document.getElementById('basic-demo-link');
   const standardDemoLink = document.getElementById('standard-demo-link');
 
-  const pricingPeriodsText = document.querySelectorAll('.pricing-period');
-  const pricingAsterisks = document.querySelectorAll('.pricing-asterisk');
-  const pricingFootnote = document.querySelector('.pricing-footnote-text');
+  const minimumPurchaseText = document.querySelectorAll('.minimum-purchase');
 
   function handleChangePricing() {
     const pricingCategory = agenciesRadioButton?.checked ? 'agencies' : 'teams';
     const pricingPeriod = pricingToggle?.checked ? 'monthly' : 'annually';
 
-    // Agencies Selected
+    // Handle agencies Selected
     if (
       agenciesRadioButton?.checked &&
       !agenciesRadio.classList.contains('pricing-radio-selected')
@@ -383,14 +381,9 @@ export const pricingPage = () => {
 
       basicDemoLink.classList.remove('hide');
       standardDemoLink.classList.remove('hide');
-
-      pricingFootnote.classList.contains('hide') && pricingFootnote.classList.remove('hide');
-      pricingAsterisks?.forEach((asterisk) => {
-        asterisk.classList.contains('hide') && asterisk.classList.remove('hide');
-      });
     }
 
-    // Teams Selected
+    // Handle teams Selected
     if (teamsRadioButton?.checked && !teamsRadio.classList.contains('pricing-radio-selected')) {
       teamsRadio.classList.add('pricing-radio-selected');
       agenciesRadio.classList.remove('pricing-radio-selected');
@@ -399,15 +392,15 @@ export const pricingPage = () => {
 
       !basicDemoLink.classList.contains('hide') && basicDemoLink.classList.add('hide');
       !standardDemoLink.classList.contains('hide') && standardDemoLink.classList.add('hide');
-
-      !pricingFootnote.classList.contains('hide') && pricingFootnote.classList.add('hide');
-      pricingAsterisks?.forEach((asterisk) => {
-        !asterisk.classList.contains('hide') && asterisk.classList.add('hide');
-      });
     }
 
-    pricingPeriodsText?.forEach((period) => {
-      period.innerHTML = pricingToggle?.checked ? 'billed once monthly' : 'billed once yearly';
+    // Handle minimum purchase text
+    minimumPurchaseText?.forEach((period) => {
+      if (agenciesRadioButton?.checked) {
+        period.classList.contains('hide') && period.classList.remove('hide');
+      } else if (teamsRadioButton?.checked) {
+        !period.classList.contains('hide') && period.classList.add('hide');
+      }
     });
 
     // Handle toggle label color
@@ -433,5 +426,4 @@ export const pricingPage = () => {
   pricingRadioGroup[0].addEventListener('change', handleChangePricing);
   pricingRadioGroup[1].addEventListener('change', handleChangePricing);
   pricingToggle.addEventListener('change', handleChangePricing);
-  console.log('pricing-page');
 };
