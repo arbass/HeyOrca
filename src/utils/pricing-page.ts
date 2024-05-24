@@ -336,4 +336,101 @@ export const pricingPage = () => {
       }
     }, 500);
   }
+
+  const agenciesRadio = document.getElementById('pricing-radio-agencies');
+  const teamsRadio = document.getElementById('pricing-radio-teams');
+
+  const pricingRadioGroup = document.getElementsByName('pricing-category');
+
+  const agenciesRadioButton = document.getElementById(
+    'pricing-radio-button-agencies'
+  ) as HTMLInputElement;
+  const teamsRadioButton = document.getElementById(
+    'pricing-radio-button-teams'
+  ) as HTMLInputElement;
+
+  const agenciesIcon = document.getElementById('agencies-icon');
+  const teamsIcon = document.getElementById('teams-icon');
+
+  const basicPrice = document.getElementById('basic-price');
+  const standardPrice = document.getElementById('standard-price');
+  const proPrice = document.getElementById('pro-price');
+
+  const pricingToggle = document.getElementById('pricing-toggle') as HTMLInputElement;
+  const pricingToggleLabelMonthly = document.getElementById('pricing-toggle-label-monthly');
+  const pricingToggleLabelAnnually = document.getElementById('pricing-toggle-label-annually');
+
+  const basicDemoLink = document.getElementById('basic-demo-link');
+  const standardDemoLink = document.getElementById('standard-demo-link');
+
+  const pricingPeriodsText = document.querySelectorAll('.pricing-period');
+  const pricingAsterisks = document.querySelectorAll('.pricing-asterisk');
+  const pricingFootnote = document.querySelector('.pricing-footnote-text');
+
+  function handleChangePricing() {
+    const pricingCategory = agenciesRadioButton?.checked ? 'agencies' : 'teams';
+    const pricingPeriod = pricingToggle?.checked ? 'monthly' : 'annually';
+
+    // Agencies Selected
+    if (
+      agenciesRadioButton?.checked &&
+      !agenciesRadio.classList.contains('pricing-radio-selected')
+    ) {
+      agenciesRadio.classList.add('pricing-radio-selected');
+      teamsRadio.classList.remove('pricing-radio-selected');
+      agenciesIcon.classList.remove('grey-icon');
+      teamsIcon.classList.add('grey-icon');
+
+      basicDemoLink.classList.remove('hide');
+      standardDemoLink.classList.remove('hide');
+
+      pricingFootnote.classList.contains('hide') && pricingFootnote.classList.remove('hide');
+      pricingAsterisks?.forEach((asterisk) => {
+        asterisk.classList.contains('hide') && asterisk.classList.remove('hide');
+      });
+    }
+
+    // Teams Selected
+    if (teamsRadioButton?.checked && !teamsRadio.classList.contains('pricing-radio-selected')) {
+      teamsRadio.classList.add('pricing-radio-selected');
+      agenciesRadio.classList.remove('pricing-radio-selected');
+      teamsIcon.classList.remove('grey-icon');
+      agenciesIcon.classList.add('grey-icon');
+
+      !basicDemoLink.classList.contains('hide') && basicDemoLink.classList.add('hide');
+      !standardDemoLink.classList.contains('hide') && standardDemoLink.classList.add('hide');
+
+      !pricingFootnote.classList.contains('hide') && pricingFootnote.classList.add('hide');
+      pricingAsterisks?.forEach((asterisk) => {
+        !asterisk.classList.contains('hide') && asterisk.classList.add('hide');
+      });
+    }
+
+    pricingPeriodsText?.forEach((period) => {
+      period.innerHTML = pricingToggle?.checked ? 'billed once monthly' : 'billed once yearly';
+    });
+
+    // Handle toggle label color
+    if (pricingToggle?.checked) {
+      !pricingToggleLabelAnnually.classList.contains('grey-text') &&
+        pricingToggleLabelAnnually.classList.add('grey-text');
+
+      pricingToggleLabelMonthly.classList.contains('grey-text') &&
+        pricingToggleLabelMonthly.classList.remove('grey-text');
+    } else {
+      pricingToggleLabelAnnually.classList.contains('grey-text') &&
+        pricingToggleLabelAnnually.classList.remove('grey-text');
+
+      !pricingToggleLabelMonthly.classList.contains('grey-text') &&
+        pricingToggleLabelMonthly.classList.add('grey-text');
+    }
+
+    basicPrice.innerText = basicPrice.getAttribute(`${pricingCategory}-${pricingPeriod}`);
+    standardPrice.innerText = standardPrice.getAttribute(`${pricingCategory}-${pricingPeriod}`);
+    proPrice.innerText = proPrice.getAttribute(`${pricingCategory}-${pricingPeriod}`);
+  }
+
+  pricingRadioGroup[0].addEventListener('change', handleChangePricing);
+  pricingRadioGroup[1].addEventListener('change', handleChangePricing);
+  pricingToggle.addEventListener('change', handleChangePricing);
 };
