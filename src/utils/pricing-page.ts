@@ -394,12 +394,12 @@ export const pricingPage = () => {
       !standardDemoLink.classList.contains('hide') && standardDemoLink.classList.add('hide');
     }
 
-    // Handle minimum purchase text
-    minimumPurchaseText?.forEach((period) => {
+    // Handle toggle minimum purchase text
+    minimumPurchaseText?.forEach((element) => {
       if (agenciesRadioButton?.checked) {
-        period.classList.contains('hide') && period.classList.remove('hide');
+        element.classList.contains('hide') && element.classList.remove('hide');
       } else if (teamsRadioButton?.checked) {
-        !period.classList.contains('hide') && period.classList.add('hide');
+        !element.classList.contains('hide') && element.classList.add('hide');
       }
     });
 
