@@ -1,3 +1,4 @@
+import { agenciesPage } from '$utils/agencies-page';
 import { articlesNotNull } from '$utils/blog-article-not-null';
 import { categoriesSlider } from '$utils/categories-slider';
 import { featureCardsTunnel } from '$utils/feature-cards-tunnel';
@@ -43,4 +44,5 @@ window.Webflow.push(() => {
   categoriesSlider();
   webinarPageStart();
   func_utmChecker();
+  agenciesPage();
 });

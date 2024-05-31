@@ -6,8 +6,8 @@ export const masonryGrid = () => {
     const allColums = masonryGrid_el.querySelectorAll('.testimonials-grid_column');
     const allElements = masonryGrid_el.querySelectorAll('.testimonials-grid_item');
     let pointer = 0;
-    allElements.forEach((el) => {
-      allColums[pointer].appendChild(el);
+    allElements?.forEach((el) => {
+      allColums[pointer]?.appendChild(el);
       if (pointer !== 2) {
         pointer++;
       } else {
