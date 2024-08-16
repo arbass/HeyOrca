@@ -14,6 +14,7 @@ import { masonryGrid } from '$utils/masonry';
 import { nestLinkPervent } from '$utils/nest-links-pervent';
 import { popupCloseHelper } from '$utils/popup-close-helper';
 import { pricingPage } from '$utils/pricing-page';
+import { signUpForm } from '$utils/sign-up-form';
 import { swiper_homePageInit } from '$utils/swiper_home-page';
 import { swiper_storiesInit } from '$utils/swiper_stories';
 import { timeAccordionComponent } from '$utils/time-accordion-component';
@@ -47,4 +48,5 @@ window.Webflow.push(() => {
   func_utmChecker();
   agenciesPage();
   earlyAgenciesPage();
+  signUpForm();
 });
