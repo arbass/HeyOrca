@@ -42,7 +42,7 @@ export const signUpForm = () => {
         const encodedSource = encodeURIComponent(source);
         const encodedPageId = encodeURIComponent(pageId);
 
-        const uri = `https://app.localhost/signup?email=${encodedEmail}&industryType=${encodedIndustryType}&numberOfSocialProfiles=${encodedNumberOfSocialProfiles}&source=${encodedSource}&pageId=${encodedPageId}`;
+        const uri = `https://app.heyorca.com/signup?email=${encodedEmail}&industryType=${encodedIndustryType}&numberOfSocialProfiles=${encodedNumberOfSocialProfiles}&source=${encodedSource}&pageId=${encodedPageId}`;
 
         try {
           const response = await fetch(uri, {
@@ -64,19 +64,16 @@ export const signUpForm = () => {
             }),
             headers: {
               'Content-Type': 'application/x-www-form-urlencoded',
-              Accept: 'text/html',
             },
           });
 
-          console.log(response);
-
-          const result = await response.json();
-
-          if (result.success && result.redirect && result.redirectPath) {
-            // Handle navigating to app
-            window.location.assign(result.redirectPath);
-            return false;
+          if (response.redirected) {
+            window.location.href = response.url;
+          } else {
+            throw new Error('No redirect!');
           }
+
+          return false;
         } catch (error) {
           console.error(error);
           return false;
