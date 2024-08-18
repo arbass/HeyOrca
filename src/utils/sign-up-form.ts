@@ -19,7 +19,7 @@ export const signUpForm = () => {
         const formData = new FormData(signUpForm);
         const reqData = Object.fromEntries(formData.entries());
 
-        const pageId = 'f421d896-244e-4637-9bc8-17edaebe4644';
+        const pageId = '47bda884-16b9-4474-a755-ef08d0858aba';
         const segmentAnonymousId = window.analytics?.user && analytics.user().anonymousId();
         const utmParams = new URLSearchParams(window.location.search);
 
@@ -43,6 +43,8 @@ export const signUpForm = () => {
         const encodedPageId = encodeURIComponent(pageId);
 
         const uri = `https://app.heyorca.com/signup?email=${encodedEmail}&industryType=${encodedIndustryType}&numberOfSocialProfiles=${encodedNumberOfSocialProfiles}&source=${encodedSource}&pageId=${encodedPageId}`;
+
+        console.log('new pageId');
 
         try {
           const response = await fetch(uri, {
