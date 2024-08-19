@@ -4,8 +4,8 @@ export const signUpForm = () => {
   if (homePage) {
     const signUpForm = document.forms[0];
 
-    if (signUpForm.id === 'wf-form-signup-form') {
-      document.domain = 'heyorca.com';
+    if (signUpForm.id === 'signup-form') {
+      console.log('Signup form found.');
 
       signUpForm.addEventListener('submit', async (event) => {
         event.preventDefault();
