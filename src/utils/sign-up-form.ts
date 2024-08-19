@@ -42,7 +42,7 @@ export const signUpForm = () => {
         const encodedSource = encodeURIComponent(source);
         const encodedPageId = encodeURIComponent(pageId);
 
-        const uri = `https://app.localhost/signup?email=${encodedEmail}&industryType=${encodedIndustryType}&numberOfSocialProfiles=${encodedNumberOfSocialProfiles}&source=${encodedSource}&pageId=${encodedPageId}`;
+        const uri = `https://app.heyorca.com/signup?email=${encodedEmail}&industryType=${encodedIndustryType}&numberOfSocialProfiles=${encodedNumberOfSocialProfiles}&source=${encodedSource}&pageId=${encodedPageId}`;
 
         console.log('test 2');
 
