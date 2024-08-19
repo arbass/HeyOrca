@@ -5,6 +5,8 @@ export const signUpForm = () => {
     const signUpForm = document.forms[0];
 
     if (signUpForm.id === 'wf-form-signup-form') {
+      document.domain = 'app.heyorca.com';
+
       signUpForm.addEventListener('submit', async (event) => {
         event.preventDefault();
 
