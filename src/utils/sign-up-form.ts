@@ -42,28 +42,13 @@ export const signUpForm = () => {
         const encodedSource = encodeURIComponent(source);
         const encodedPageId = encodeURIComponent(pageId);
 
-        const uri = `https://app.heyorca.com/signup?email=${encodedEmail}&industryType=${encodedIndustryType}&numberOfSocialProfiles=${encodedNumberOfSocialProfiles}&source=${encodedSource}&pageId=${encodedPageId}`;
+        const uri = `https://app.localhost/signup?email=${encodedEmail}&industryType=${encodedIndustryType}&numberOfSocialProfiles=${encodedNumberOfSocialProfiles}&source=${encodedSource}&pageId=${encodedPageId}`;
 
-        console.log('new pageId');
+        console.log('test 2');
 
         try {
           const response = await fetch(uri, {
             method: 'POST',
-            body: new URLSearchParams({
-              pageId,
-              email,
-              industryType,
-              numberOfSocialProfiles,
-              source,
-              anonymousId: segmentAnonymousId,
-              ...(utm_campaign && { utm_campaign }),
-              ...(utm_content && { utm_content }),
-              ...(utm_device && { utm_device }),
-              ...(utm_medium && { utm_medium }),
-              ...(utm_placement && { utm_placement }),
-              ...(utm_source && { utm_source }),
-              ...(utm_term && { utm_term }),
-            }),
             headers: {
               'Content-Type': 'application/x-www-form-urlencoded',
             },
@@ -80,8 +65,6 @@ export const signUpForm = () => {
           console.error(error);
           return false;
         }
-
-        return false;
       });
     }
   }
