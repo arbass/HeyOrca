@@ -42,16 +42,21 @@ export const signUpForm = () => {
         const encodedSource = encodeURIComponent(source);
         const encodedPageId = encodeURIComponent(pageId);
 
-        const uri = `https://app.heyorca.com/signup?email=${encodedEmail}&industryType=${encodedIndustryType}&numberOfSocialProfiles=${encodedNumberOfSocialProfiles}&source=${encodedSource}&pageId=${encodedPageId}`;
+        let uri = `https://app.heyorca.com/signup?email=${encodedEmail}&industryType=${encodedIndustryType}&numberOfSocialProfiles=${encodedNumberOfSocialProfiles}&source=${encodedSource}&pageId=${encodedPageId}`;
 
-        console.log('test 2');
+        if (segmentAnonymousId) uri += `&anonymousId=${encodeURIComponent(segmentAnonymousId)}`;
+        if (utm_campaign) uri += `&${UTM_CAMPAIGN}=${encodeURIComponent(utm_campaign)}`;
+        if (utm_content) uri += `&${UTM_CONTENT}=${encodeURIComponent(utm_content)}`;
+        if (utm_device) uri += `&${UTM_DEVICE}=${encodeURIComponent(utm_device)}`;
+        if (utm_medium) uri += `&${UTM_MEDIUM}=${encodeURIComponent(utm_medium)}`;
+        if (utm_placement) uri += `&${UTM_PLACEMENT}=${encodeURIComponent(utm_placement)}`;
+        if (utm_source) uri += `&${UTM_SOURCE}=${encodeURIComponent(utm_source)}`;
+        if (utm_term) uri += `&${UTM_TERM}=${encodeURIComponent(utm_term)}`;
 
         try {
           const response = await fetch(uri, {
             method: 'POST',
-            headers: {
-              'Content-Type': 'application/x-www-form-urlencoded',
-            },
+            headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
           });
 
           if (response.redirected) {
