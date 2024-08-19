@@ -5,7 +5,7 @@ export const signUpForm = () => {
     const signUpForm = document.forms[0];
 
     if (signUpForm.id === 'wf-form-signup-form') {
-      document.domain = 'app.heyorca.com';
+      document.domain = 'heyorca.com';
 
       signUpForm.addEventListener('submit', async (event) => {
         event.preventDefault();
@@ -58,6 +58,7 @@ export const signUpForm = () => {
         try {
           const response = await fetch(uri, {
             method: 'POST',
+            credentials: 'include',
             headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
           });
 
