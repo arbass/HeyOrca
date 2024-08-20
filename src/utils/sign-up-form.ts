@@ -7,10 +7,6 @@ export const signUpForm = () => {
     if (signUpForm.id === 'signup-form') {
       const pageId = '47bda884-16b9-4474-a755-ef08d0858aba';
 
-      const segmentAnonymousId = window.analytics?.user
-        ? window.analytics.user().anonymousId()
-        : '';
-
       const UTM_CAMPAIGN = 'utm_campaign';
       const UTM_CONTENT = 'utm_content';
       const UTM_DEVICE = 'utm_device';
@@ -34,14 +30,6 @@ export const signUpForm = () => {
       pageId_input.name = 'pageId';
       pageId_input.value = pageId;
       signUpForm.appendChild(pageId_input);
-
-      if (segmentAnonymousId) {
-        const segmentAnonymousId_input = document.createElement('input');
-        segmentAnonymousId_input.type = 'hidden';
-        segmentAnonymousId_input.name = 'anonymousId';
-        segmentAnonymousId_input.value = segmentAnonymousId;
-        signUpForm.appendChild(segmentAnonymousId_input);
-      }
 
       if (utm_campaign) {
         const utm_campaign_input = document.createElement('input');
@@ -98,6 +86,18 @@ export const signUpForm = () => {
         utm_term_input.value = utm_term;
         signUpForm.appendChild(utm_term_input);
       }
+
+      setTimeout(() => {
+        const segmentAnonymousId = window.analytics?.user && window.analytics.user().anonymousId();
+
+        if (segmentAnonymousId) {
+          const segmentAnonymousId_input = document.createElement('input');
+          segmentAnonymousId_input.type = 'hidden';
+          segmentAnonymousId_input.name = 'anonymousId';
+          segmentAnonymousId_input.value = segmentAnonymousId;
+          signUpForm.appendChild(segmentAnonymousId_input);
+        }
+      }, 2000);
     } else {
       console.error('Signup form not found!');
     }
