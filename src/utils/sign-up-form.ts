@@ -5,78 +5,101 @@ export const signUpForm = () => {
     const signUpForm = document.forms[0];
 
     if (signUpForm.id === 'signup-form') {
-      console.log('Signup form found.');
+      const pageId = '47bda884-16b9-4474-a755-ef08d0858aba';
 
-      signUpForm.addEventListener('submit', async (event) => {
-        event.preventDefault();
+      const segmentAnonymousId = window.analytics?.user
+        ? window.analytics.user().anonymousId()
+        : '';
 
-        const UTM_CAMPAIGN = 'utm_campaign';
-        const UTM_CONTENT = 'utm_content';
-        const UTM_DEVICE = 'utm_device';
-        const UTM_MEDIUM = 'utm_medium';
-        const UTM_PLACEMENT = 'utm_placement';
-        const UTM_SOURCE = 'utm_source';
-        const UTM_TERM = 'utm_term';
+      const UTM_CAMPAIGN = 'utm_campaign';
+      const UTM_CONTENT = 'utm_content';
+      const UTM_DEVICE = 'utm_device';
+      const UTM_MEDIUM = 'utm_medium';
+      const UTM_PLACEMENT = 'utm_placement';
+      const UTM_SOURCE = 'utm_source';
+      const UTM_TERM = 'utm_term';
 
-        const formData = new FormData(signUpForm);
-        const reqData = Object.fromEntries(formData.entries());
+      const utmParams = new URLSearchParams(window.location.search);
 
-        const pageId = '47bda884-16b9-4474-a755-ef08d0858aba';
+      const utm_campaign = utmParams.get(UTM_CAMPAIGN);
+      const utm_content = utmParams.get(UTM_CONTENT);
+      const utm_device = utmParams.get(UTM_DEVICE);
+      const utm_medium = utmParams.get(UTM_MEDIUM);
+      const utm_placement = utmParams.get(UTM_PLACEMENT);
+      const utm_source = utmParams.get(UTM_SOURCE);
+      const utm_term = utmParams.get(UTM_TERM);
 
-        const segmentAnonymousId = window.analytics?.user
-          ? window.analytics.user().anonymousId()
-          : '';
+      const pageId_input = document.createElement('input');
+      pageId_input.type = 'hidden';
+      pageId_input.name = 'pageId';
+      pageId_input.value = pageId;
+      signUpForm.appendChild(pageId_input);
 
-        const utmParams = new URLSearchParams(window.location.search);
+      if (segmentAnonymousId) {
+        const segmentAnonymousId_input = document.createElement('input');
+        segmentAnonymousId_input.type = 'hidden';
+        segmentAnonymousId_input.name = 'anonymousId';
+        segmentAnonymousId_input.value = segmentAnonymousId;
+        signUpForm.appendChild(segmentAnonymousId_input);
+      }
 
-        const utm_campaign = utmParams.get(UTM_CAMPAIGN);
-        const utm_content = utmParams.get(UTM_CONTENT);
-        const utm_device = utmParams.get(UTM_DEVICE);
-        const utm_medium = utmParams.get(UTM_MEDIUM);
-        const utm_placement = utmParams.get(UTM_PLACEMENT);
-        const utm_source = utmParams.get(UTM_SOURCE);
-        const utm_term = utmParams.get(UTM_TERM);
+      if (utm_campaign) {
+        const utm_campaign_input = document.createElement('input');
+        utm_campaign_input.type = 'hidden';
+        utm_campaign_input.name = UTM_CAMPAIGN;
+        utm_campaign_input.value = utm_campaign;
+        signUpForm.appendChild(utm_campaign_input);
+      }
 
-        const email = `${reqData.email}`;
-        const industryType = `${reqData.industryType}`;
-        const numberOfSocialProfiles = `${reqData.numberOfSocialProfiles}`;
-        const source = `${reqData.source}`;
+      if (utm_content) {
+        const utm_content_input = document.createElement('input');
+        utm_content_input.type = 'hidden';
+        utm_content_input.name = UTM_CONTENT;
+        utm_content_input.value = utm_content;
+        signUpForm.appendChild(utm_content_input);
+      }
 
-        const encodedEmail = encodeURIComponent(email);
-        const encodedIndustryType = encodeURIComponent(industryType);
-        const encodedNumberOfSocialProfiles = encodeURIComponent(numberOfSocialProfiles);
-        const encodedSource = encodeURIComponent(source);
-        const encodedPageId = encodeURIComponent(pageId);
+      if (utm_device) {
+        const utm_device_input = document.createElement('input');
+        utm_device_input.type = 'hidden';
+        utm_device_input.name = UTM_DEVICE;
+        utm_device_input.value = utm_device;
+        signUpForm.appendChild(utm_device_input);
+      }
 
-        let uri = `https://app.heyorca.com/signup?email=${encodedEmail}&industryType=${encodedIndustryType}&numberOfSocialProfiles=${encodedNumberOfSocialProfiles}&source=${encodedSource}&pageId=${encodedPageId}`;
+      if (utm_medium) {
+        const utm_medium_input = document.createElement('input');
+        utm_medium_input.type = 'hidden';
+        utm_medium_input.name = UTM_MEDIUM;
+        utm_medium_input.value = utm_medium;
+        signUpForm.appendChild(utm_medium_input);
+      }
 
-        if (segmentAnonymousId) uri += `&anonymousId=${encodeURIComponent(segmentAnonymousId)}`;
-        if (utm_campaign) uri += `&${UTM_CAMPAIGN}=${encodeURIComponent(utm_campaign)}`;
-        if (utm_content) uri += `&${UTM_CONTENT}=${encodeURIComponent(utm_content)}`;
-        if (utm_device) uri += `&${UTM_DEVICE}=${encodeURIComponent(utm_device)}`;
-        if (utm_medium) uri += `&${UTM_MEDIUM}=${encodeURIComponent(utm_medium)}`;
-        if (utm_placement) uri += `&${UTM_PLACEMENT}=${encodeURIComponent(utm_placement)}`;
-        if (utm_source) uri += `&${UTM_SOURCE}=${encodeURIComponent(utm_source)}`;
-        if (utm_term) uri += `&${UTM_TERM}=${encodeURIComponent(utm_term)}`;
+      if (utm_placement) {
+        const utm_placement_input = document.createElement('input');
+        utm_placement_input.type = 'hidden';
+        utm_placement_input.name = UTM_PLACEMENT;
+        utm_placement_input.value = utm_placement;
+        signUpForm.appendChild(utm_placement_input);
+      }
 
-        try {
-          const response = await fetch(uri, {
-            method: 'POST',
-            headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
-          });
+      if (utm_source) {
+        const utm_source_input = document.createElement('input');
+        utm_source_input.type = 'hidden';
+        utm_source_input.name = UTM_SOURCE;
+        utm_source_input.value = utm_source;
+        signUpForm.appendChild(utm_source_input);
+      }
 
-          if (response.redirected) {
-            window.location.href = response.url;
-          } else {
-            throw new Error('No redirect!');
-          }
-
-          return false;
-        } catch (error) {
-          console.error(error);
-          return false;
-        }
-      });
+      if (utm_term) {
+        const utm_term_input = document.createElement('input');
+        utm_term_input.type = 'hidden';
+        utm_term_input.name = UTM_TERM;
+        utm_term_input.value = utm_term;
+        signUpForm.appendChild(utm_term_input);
+      }
+    } else {
+      console.error('Signup form not found!');
     }
   }
 };
