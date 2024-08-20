@@ -22,7 +22,11 @@ export const signUpForm = () => {
         const reqData = Object.fromEntries(formData.entries());
 
         const pageId = '47bda884-16b9-4474-a755-ef08d0858aba';
-        const segmentAnonymousId = window.analytics?.user && analytics.user().anonymousId();
+
+        const segmentAnonymousId = window.analytics?.user
+          ? window.analytics.user().anonymousId()
+          : '';
+
         const utmParams = new URLSearchParams(window.location.search);
 
         const utm_campaign = utmParams.get(UTM_CAMPAIGN);
@@ -58,7 +62,6 @@ export const signUpForm = () => {
         try {
           const response = await fetch(uri, {
             method: 'POST',
-            credentials: 'include',
             headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
           });
 
