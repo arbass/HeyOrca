@@ -5,7 +5,7 @@ export const signUpForm = () => {
     const signUpForm = document.forms[0];
 
     if (signUpForm.id === 'signup-form') {
-      const pageId = '47bda884-16b9-4474-a755-ef08d0858aba';
+      const pageId = '9366b56d-11b8-4f9f-bcbe-797bca4fe540';
 
       const UTM_CAMPAIGN = 'utm_campaign';
       const UTM_CONTENT = 'utm_content';
