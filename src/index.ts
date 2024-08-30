@@ -11,6 +11,7 @@ import { floatingInput } from '$utils/form_floatin-inputs';
 import { formDropdown } from '$utils/forms-dropdown';
 import { globalVariables } from '$utils/global-variables';
 import { masonryGrid } from '$utils/masonry';
+import { mobilePricingSwiper } from '$utils/mobile-pricing-swiper';
 import { nestLinkPervent } from '$utils/nest-links-pervent';
 import { popupCloseHelper } from '$utils/popup-close-helper';
 import { pricingPage } from '$utils/pricing-page';
@@ -40,6 +41,7 @@ window.Webflow.push(() => {
   pricingPage();
   timeSection_featurePage();
   masonryGrid();
+  mobilePricingSwiper();
   popupCloseHelper();
   formDropdown();
   floatingInput();
