@@ -89,14 +89,27 @@ export const mobilePricingSwiper = () => {
       });
 
       window.addEventListener('resize', () => {
-        const accordionContent = document.querySelectorAll(
-          '.accordion-content.open'
-        ) as NodeListOf<HTMLElement>;
+        ['features', 'publishing', 'reporting', 'community-management'].forEach((className) => {
+          const headers = document.querySelectorAll(
+            `.accordion-header.${className}`
+          ) as NodeListOf<HTMLElement>;
 
-        accordionContent.forEach((content) => {
-          content.style.height = 'auto';
-          const contentHeight = content.scrollHeight;
-          content.style.height = `${contentHeight}px`;
+          let largestHeight = 0;
+
+          headers.forEach((header) => {
+            const accordionContent = header.nextElementSibling as HTMLElement;
+
+            if (accordionContent.classList.contains('open')) {
+              accordionContent.style.height = 'auto';
+              const contentHeight = accordionContent.scrollHeight;
+              if (contentHeight > largestHeight) largestHeight = contentHeight;
+            }
+          });
+
+          headers.forEach((header) => {
+            const accordionContent = header.nextElementSibling as HTMLElement;
+            accordionContent.style.height = `${largestHeight}px`;
+          });
         });
       });
     }
