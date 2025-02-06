@@ -368,6 +368,8 @@ export const pricingPage = () => {
 
     const minimumPurchaseText = document.querySelectorAll('.minimum-purchase');
 
+    const pricingButtonLinks = document.querySelectorAll('.pricing-button-link');
+
     const handleChangePricing = () => {
       const pricingCategory = agenciesRadioButton?.checked ? 'agencies' : 'teams';
       const pricingPeriod = pricingToggle?.checked ? 'monthly' : 'annually';
@@ -420,6 +422,18 @@ export const pricingPage = () => {
         !pricingToggleLabelMonthly.classList.contains('grey-text') &&
           pricingToggleLabelMonthly.classList.add('grey-text');
       }
+
+      pricingButtonLinks.forEach((link) => {
+        const href = link.getAttribute(`${pricingCategory}-button-link`);
+        const text = link.getAttribute(`${pricingCategory}-button-text`);
+        const spanText = link.querySelector('div span');
+        if (href) {
+          link.setAttribute('href', href);
+        }
+        if (spanText) {
+          spanText.textContent = text;
+        }
+      });
 
       basicPrice.innerText = basicPrice.getAttribute(`${pricingCategory}-${pricingPeriod}`);
       standardPrice.innerText = standardPrice.getAttribute(`${pricingCategory}-${pricingPeriod}`);
