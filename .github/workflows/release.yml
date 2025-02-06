@@ -9,5 +9,7 @@ on:
 jobs:
   release:
     uses: finsweet/workflow-release/.github/workflows/release.yml@main
+    with:
+      install-command: "pnpm install --no-frozen-lockfile"
     secrets:
       NPM_TOKEN: ${{ secrets.NPM_TOKEN }}
