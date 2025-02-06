@@ -367,8 +367,8 @@ export const pricingPage = () => {
     const standardDemoLink = document.getElementById('standard-demo-link');
 
     const minimumPurchaseText = document.querySelectorAll('.minimum-purchase');
-
     const pricingButtonLinks = document.querySelectorAll('.pricing-button-link');
+    const secondaryCtaLinks = document.querySelectorAll('.pricing-demo-link');
 
     const handleChangePricing = () => {
       const pricingCategory = agenciesRadioButton?.checked ? 'agencies' : 'teams';
@@ -432,6 +432,15 @@ export const pricingPage = () => {
         }
         if (spanText) {
           spanText.textContent = text;
+        }
+      });
+
+      secondaryCtaLinks.forEach((link) => {
+        const href = link.getAttribute(`${pricingCategory}-button-link`);
+        const text = link.getAttribute(`${pricingCategory}-button-text`);
+        link.textContent = text;
+        if (href) {
+          link.setAttribute('href', href);
         }
       });
 
