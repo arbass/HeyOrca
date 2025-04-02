@@ -363,6 +363,7 @@ export const pricingPage = () => {
     const pricingToggleLabelMonthly = document.getElementById('pricing-toggle-label-monthly');
     const pricingToggleLabelAnnually = document.getElementById('pricing-toggle-label-annually');
 
+    const freeDemoLink = document.getElementById('free-demo-link');
     const basicDemoLink = document.getElementById('basic-demo-link');
     const standardDemoLink = document.getElementById('standard-demo-link');
 
@@ -384,6 +385,7 @@ export const pricingPage = () => {
         agenciesIcon.classList.remove('grey-icon');
         teamsIcon.classList.add('grey-icon');
 
+        freeDemoLink.classList.remove('hide');
         basicDemoLink.classList.remove('hide');
         standardDemoLink.classList.remove('hide');
       }
@@ -395,6 +397,7 @@ export const pricingPage = () => {
         teamsIcon.classList.remove('grey-icon');
         agenciesIcon.classList.add('grey-icon');
 
+        !freeDemoLink.classList.contains('hide') && freeDemoLink.classList.add('hide');
         !basicDemoLink.classList.contains('hide') && basicDemoLink.classList.add('hide');
         !standardDemoLink.classList.contains('hide') && standardDemoLink.classList.add('hide');
       }
