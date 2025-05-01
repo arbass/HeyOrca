@@ -367,9 +367,16 @@ export const pricingPage = () => {
     const basicDemoLink = document.getElementById('basic-demo-link');
     const standardDemoLink = document.getElementById('standard-demo-link');
 
-    const minimumPurchaseText = document.querySelectorAll('.minimum-purchase');
     const pricingButtonLinks = document.querySelectorAll('.pricing-button-link');
     const secondaryCtaLinks = document.querySelectorAll('.pricing-demo-link');
+
+    const pricingCardFree = document.getElementById('pricing-card-free');
+    const pricingCardGrid = document.getElementById('pricing-card-grid');
+
+    const pricingTableHeaders = document.querySelectorAll('.pricing-table-header');
+    const pricingTableSectionRows = document.querySelectorAll('.pricing-table-section-row');
+    const pricingTableRows = document.querySelectorAll('.pricing-table-row');
+    const freePlanColCells = document.querySelectorAll('.is-free-col');
 
     const handleChangePricing = () => {
       const pricingCategory = agenciesRadioButton?.checked ? 'agencies' : 'teams';
@@ -388,6 +395,25 @@ export const pricingPage = () => {
         freeDemoLink.classList.remove('hide');
         basicDemoLink.classList.remove('hide');
         standardDemoLink.classList.remove('hide');
+
+        pricingCardFree?.classList.add('hide');
+        pricingCardGrid?.classList.remove('with-free-plan');
+
+        pricingTableHeaders?.forEach((header) => {
+          header.classList.remove('with-free-plan');
+        });
+
+        pricingTableSectionRows?.forEach((sectionRow) => {
+          sectionRow.classList.remove('with-free-plan');
+        });
+
+        pricingTableRows?.forEach((row) => {
+          row.classList.remove('with-free-plan');
+        });
+
+        freePlanColCells?.forEach((cell) => {
+          !cell.classList.contains('hide') && cell.classList.add('hide');
+        });
       }
 
       // Handle teams Selected
@@ -400,16 +426,27 @@ export const pricingPage = () => {
         !freeDemoLink.classList.contains('hide') && freeDemoLink.classList.add('hide');
         !basicDemoLink.classList.contains('hide') && basicDemoLink.classList.add('hide');
         !standardDemoLink.classList.contains('hide') && standardDemoLink.classList.add('hide');
-      }
 
-      // Handle toggle minimum purchase text
-      minimumPurchaseText?.forEach((element) => {
-        if (agenciesRadioButton?.checked) {
-          element.classList.contains('hide') && element.classList.remove('hide');
-        } else if (teamsRadioButton?.checked) {
-          !element.classList.contains('hide') && element.classList.add('hide');
-        }
-      });
+        pricingCardFree?.classList.remove('hide');
+        pricingCardGrid?.classList.add('with-free-plan');
+
+        pricingTableHeaders?.forEach((header) => {
+          !header.classList.contains('with-free-plan') && header.classList.add('with-free-plan');
+        });
+
+        pricingTableSectionRows?.forEach((sectionRow) => {
+          !sectionRow.classList.contains('with-free-plan') &&
+            sectionRow.classList.add('with-free-plan');
+        });
+
+        pricingTableRows?.forEach((row) => {
+          !row.classList.contains('with-free-plan') && row.classList.add('with-free-plan');
+        });
+
+        freePlanColCells?.forEach((cell) => {
+          cell.classList.remove('hide');
+        });
+      }
 
       // Handle toggle label color
       if (pricingToggle?.checked) {
