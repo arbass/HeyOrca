@@ -371,6 +371,7 @@ export const pricingPage = () => {
     const secondaryCtaLinks = document.querySelectorAll('.pricing-demo-link');
 
     const pricingCardFree = document.getElementById('pricing-card-free');
+    const pricingSlideFree = document.getElementById('pricing-slide-free');
     const pricingCardGrid = document.getElementById('pricing-card-grid');
 
     const pricingTableHeaders = document.querySelectorAll('.pricing-table-header');
@@ -397,6 +398,7 @@ export const pricingPage = () => {
         standardDemoLink.classList.remove('hide');
 
         pricingCardFree?.classList.add('hide');
+        pricingSlideFree?.classList.add('hide');
         pricingCardGrid?.classList.remove('with-free-plan');
 
         pricingTableHeaders?.forEach((header) => {
@@ -428,6 +430,7 @@ export const pricingPage = () => {
         !standardDemoLink.classList.contains('hide') && standardDemoLink.classList.add('hide');
 
         pricingCardFree?.classList.remove('hide');
+        pricingSlideFree?.classList.remove('hide');
         pricingCardGrid?.classList.add('with-free-plan');
 
         pricingTableHeaders?.forEach((header) => {
