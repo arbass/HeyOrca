@@ -13,7 +13,7 @@ export const mobilePricingSwiper = () => {
     ) as HTMLElement;
 
     if (mobilePricingSwiper) {
-      new Swiper(mobilePricingSwiper, {
+      const swiper = new Swiper(mobilePricingSwiper, {
         modules: [Pagination],
         direction: 'horizontal',
         loop: false,
@@ -37,6 +37,10 @@ export const mobilePricingSwiper = () => {
           },
         },
       });
+
+      const updateSlides = () => {
+        swiper.updateSlides();
+      };
 
       const toggleAccordionWithClass = (className: string) => {
         const headers = document.querySelectorAll(
@@ -66,6 +70,8 @@ export const mobilePricingSwiper = () => {
           }
         });
       };
+
+      const pricingRadioGroup = document.getElementsByName('pricing-category');
 
       const accordionHeaders = document.querySelectorAll(
         '.accordion-header'
@@ -112,6 +118,9 @@ export const mobilePricingSwiper = () => {
           });
         });
       });
+
+      pricingRadioGroup[0]?.addEventListener('change', updateSlides);
+      pricingRadioGroup[1]?.addEventListener('change', updateSlides);
     }
   }
 };
