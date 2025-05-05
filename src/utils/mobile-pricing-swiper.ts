@@ -28,11 +28,11 @@ export const mobilePricingSwiper = () => {
             spaceBetween: 16,
           },
           768: {
-            slidesPerView: 3,
+            slidesPerView: 4,
             spaceBetween: 16,
           },
           992: {
-            slidesPerView: 3,
+            slidesPerView: 4,
             spaceBetween: 16,
           },
         },
@@ -40,6 +40,7 @@ export const mobilePricingSwiper = () => {
 
       const updateSlides = () => {
         swiper.updateSlides();
+        swiper.slideTo(1);
       };
 
       const toggleAccordionWithClass = (className: string) => {
