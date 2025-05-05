@@ -40,7 +40,7 @@ export const mobilePricingSwiper = () => {
 
       const updateSlides = () => {
         swiper.updateSlides();
-        swiper.slideTo(1);
+        swiper.slideTo(0);
       };
 
       const toggleAccordionWithClass = (className: string) => {
