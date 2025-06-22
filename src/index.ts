@@ -1,6 +1,7 @@
 import { agenciesPage } from '$utils/agencies-page';
 import { articlesNotNull } from '$utils/blog-article-not-null';
 import { categoriesSlider } from '$utils/categories-slider';
+import { competitorPage } from '$utils/competitor-page';
 import { earlyAgenciesPage } from '$utils/early-agencies-page';
 import { featureCardsTunnel } from '$utils/feature-cards-tunnel';
 import { sectionColFeature_2 } from '$utils/feature-cards-tunnel_2';
@@ -51,4 +52,5 @@ window.Webflow.push(() => {
   agenciesPage();
   earlyAgenciesPage();
   signUpForm();
+  competitorPage();
 });
