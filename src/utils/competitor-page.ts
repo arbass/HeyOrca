@@ -20,13 +20,13 @@ export const competitorPage = () => {
         selector.value = 'cloud-campaign';
         selector.dispatchEvent(new Event('input', { bubbles: true }));
         selector.dispatchEvent(new Event('change', { bubbles: true }));
-      }, 1000);
 
-      if (priceCollection) {
-        priceCollection.classList.remove('hide');
-      } else {
-        console.error('Competitor price collection not found!');
-      }
+        if (priceCollection) {
+          priceCollection.classList.remove('hide');
+        } else {
+          console.error('Competitor price collection not found!');
+        }
+      }, 1000);
 
       selector.addEventListener('change', function () {
         onSelectChange(this.value);
