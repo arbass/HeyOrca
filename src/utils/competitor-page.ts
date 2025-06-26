@@ -1,6 +1,6 @@
 export const competitorPage = () => {
   if (document.getElementById('competitor-page')) {
-    const competitorPrice = document.getElementById('competitor-price');
+    const priceCollection = document.getElementById('price-collection');
     const selector = document.getElementById('competitor-selector') as HTMLSelectElement;
     const allOptions = document.querySelectorAll(
       '[competitor-select-option]'
@@ -11,17 +11,21 @@ export const competitorPage = () => {
         const competitor = el.getAttribute('competitor-select-option');
         el.style.display = competitor === selectedValue ? 'block' : 'none';
       });
-
-      if (competitorPrice) {
-        const price = competitorPrice.getAttribute(selectedValue);
-        competitorPrice.textContent = price;
-      } else {
-        console.error('Competitor price not found!');
-      }
     }
 
     if (selector) {
       onSelectChange(selector.value);
+
+      selector.value = 'cloud-campaign';
+      selector.dispatchEvent(new Event('input', { bubbles: true }));
+      selector.dispatchEvent(new Event('change', { bubbles: true }));
+
+      if (priceCollection) {
+        priceCollection.classList.remove('hide');
+      } else {
+        console.error('Competitor price collection not found!');
+      }
+
       selector.addEventListener('change', function () {
         onSelectChange(this.value);
       });
