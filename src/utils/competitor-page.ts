@@ -16,6 +16,10 @@ export const competitorPage = () => {
     if (selector) {
       onSelectChange(selector.value);
 
+      selector.value = '';
+      selector.dispatchEvent(new Event('input', { bubbles: true }));
+      selector.dispatchEvent(new Event('change', { bubbles: true }));
+
       selector.value = 'cloud-campaign';
       selector.dispatchEvent(new Event('input', { bubbles: true }));
       selector.dispatchEvent(new Event('change', { bubbles: true }));
