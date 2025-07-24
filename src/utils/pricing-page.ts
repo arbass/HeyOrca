@@ -386,16 +386,16 @@ export const pricingPage = () => {
       // Handle agencies Selected
       if (
         agenciesRadioButton?.checked &&
-        !agenciesRadio.classList.contains('pricing-radio-selected')
+        !agenciesRadio?.classList.contains('pricing-radio-selected')
       ) {
-        agenciesRadio.classList.add('pricing-radio-selected');
-        teamsRadio.classList.remove('pricing-radio-selected');
-        agenciesIcon.classList.remove('grey-icon');
-        teamsIcon.classList.add('grey-icon');
+        agenciesRadio?.classList.add('pricing-radio-selected');
+        teamsRadio?.classList.remove('pricing-radio-selected');
+        agenciesIcon?.classList.remove('grey-icon');
+        teamsIcon?.classList.add('grey-icon');
 
-        freeDemoLink.classList.remove('hide');
-        basicDemoLink.classList.remove('hide');
-        standardDemoLink.classList.remove('hide');
+        freeDemoLink?.classList.remove('hide');
+        basicDemoLink?.classList.remove('hide');
+        standardDemoLink?.classList.remove('hide');
 
         pricingCardFree?.classList.add('hide');
         pricingSlideFree?.classList.add('hide');
@@ -419,15 +419,14 @@ export const pricingPage = () => {
       }
 
       // Handle teams Selected
-      if (teamsRadioButton?.checked && !teamsRadio.classList.contains('pricing-radio-selected')) {
-        teamsRadio.classList.add('pricing-radio-selected');
-        agenciesRadio.classList.remove('pricing-radio-selected');
-        teamsIcon.classList.remove('grey-icon');
-        agenciesIcon.classList.add('grey-icon');
+      if (teamsRadioButton?.checked && !teamsRadio?.classList.contains('pricing-radio-selected')) {
+        teamsRadio?.classList.add('pricing-radio-selected');
+        agenciesRadio?.classList.remove('pricing-radio-selected');
+        teamsIcon?.classList.remove('grey-icon');
+        agenciesIcon?.classList.add('grey-icon');
 
-        !freeDemoLink.classList.contains('hide') && freeDemoLink.classList.add('hide');
-        !basicDemoLink.classList.contains('hide') && basicDemoLink.classList.add('hide');
-        !standardDemoLink.classList.contains('hide') && standardDemoLink.classList.add('hide');
+        !freeDemoLink?.classList.contains('hide') && freeDemoLink?.classList.add('hide');
+        !basicDemoLink?.classList.contains('hide') && basicDemoLink?.classList.add('hide');
 
         pricingCardFree?.classList.remove('hide');
         pricingSlideFree?.classList.remove('hide');
@@ -453,17 +452,17 @@ export const pricingPage = () => {
 
       // Handle toggle label color
       if (pricingToggle?.checked) {
-        !pricingToggleLabelAnnually.classList.contains('grey-text') &&
-          pricingToggleLabelAnnually.classList.add('grey-text');
+        !pricingToggleLabelAnnually?.classList.contains('grey-text') &&
+          pricingToggleLabelAnnually?.classList.add('grey-text');
 
-        pricingToggleLabelMonthly.classList.contains('grey-text') &&
-          pricingToggleLabelMonthly.classList.remove('grey-text');
+        pricingToggleLabelMonthly?.classList.contains('grey-text') &&
+          pricingToggleLabelMonthly?.classList.remove('grey-text');
       } else {
-        pricingToggleLabelAnnually.classList.contains('grey-text') &&
-          pricingToggleLabelAnnually.classList.remove('grey-text');
+        pricingToggleLabelAnnually?.classList.contains('grey-text') &&
+          pricingToggleLabelAnnually?.classList.remove('grey-text');
 
-        !pricingToggleLabelMonthly.classList.contains('grey-text') &&
-          pricingToggleLabelMonthly.classList.add('grey-text');
+        !pricingToggleLabelMonthly?.classList.contains('grey-text') &&
+          pricingToggleLabelMonthly?.classList.add('grey-text');
       }
 
       pricingButtonLinks.forEach((link) => {
@@ -487,9 +486,18 @@ export const pricingPage = () => {
         }
       });
 
-      basicPrice.innerText = basicPrice.getAttribute(`${pricingCategory}-${pricingPeriod}`);
-      standardPrice.innerText = standardPrice.getAttribute(`${pricingCategory}-${pricingPeriod}`);
-      proPrice.innerText = proPrice.getAttribute(`${pricingCategory}-${pricingPeriod}`);
+      if (basicPrice) {
+        basicPrice.innerText = basicPrice.getAttribute(`${pricingCategory}-${pricingPeriod}`) ?? '';
+      }
+
+      if (standardPrice) {
+        standardPrice.innerText =
+          standardPrice.getAttribute(`${pricingCategory}-${pricingPeriod}`) ?? '';
+      }
+
+      if (proPrice) {
+        proPrice.innerText = proPrice.getAttribute(`${pricingCategory}-${pricingPeriod}`) ?? '';
+      }
     };
 
     pricingRadioGroup[0]?.addEventListener('change', handleChangePricing);
