@@ -355,9 +355,9 @@ export const pricingPage = () => {
     const agenciesIcon = document.getElementById('agencies-icon');
     const teamsIcon = document.getElementById('teams-icon');
 
-    const basicPrice = document.getElementById('basic-price');
-    const standardPrice = document.getElementById('standard-price');
-    const proPrice = document.getElementById('pro-price');
+    const basicPriceEl = document.getElementById('basic-price');
+    const standardPriceEl = document.getElementById('standard-price');
+    const proPriceEl = document.getElementById('pro-price');
 
     const pricingToggle = document.getElementById('pricing-toggle') as HTMLInputElement;
     const pricingToggleLabelMonthly = document.getElementById('pricing-toggle-label-monthly');
@@ -486,22 +486,234 @@ export const pricingPage = () => {
         }
       });
 
-      if (basicPrice) {
-        basicPrice.innerText = basicPrice.getAttribute(`${pricingCategory}-${pricingPeriod}`) ?? '';
+      if (basicPriceEl) {
+        basicPriceEl.innerText =
+          basicPriceEl.getAttribute(`${pricingCategory}-${pricingPeriod}`) ?? '';
       }
 
-      if (standardPrice) {
-        standardPrice.innerText =
-          standardPrice.getAttribute(`${pricingCategory}-${pricingPeriod}`) ?? '';
+      if (standardPriceEl) {
+        standardPriceEl.innerText =
+          standardPriceEl.getAttribute(`${pricingCategory}-${pricingPeriod}`) ?? '';
       }
 
-      if (proPrice) {
-        proPrice.innerText = proPrice.getAttribute(`${pricingCategory}-${pricingPeriod}`) ?? '';
+      if (proPriceEl) {
+        proPriceEl.innerText = proPriceEl.getAttribute(`${pricingCategory}-${pricingPeriod}`) ?? '';
       }
     };
 
     pricingRadioGroup[0]?.addEventListener('change', handleChangePricing);
     pricingRadioGroup[1]?.addEventListener('change', handleChangePricing);
     pricingToggle?.addEventListener('change', handleChangePricing);
+  }
+
+  // Pricing Calculator ------------------------------------------------------------
+
+  if (isPricingPage) {
+    const pricingCalculator = document.getElementById('pricing-calculator');
+
+    if (!pricingCalculator) {
+      console.error('Pricing calculator not found!');
+      return;
+    }
+
+    const planTypeProButton = document.getElementById('pctb-pro');
+    const planTypeBasicButton = document.getElementById('pctb-basic');
+    const billingCycleAnnualButton = document.getElementById('pctb-annual');
+    const billingCycleMonthlyButton = document.getElementById('pctb-monthly');
+    const numCalendarsInput = document.getElementById(
+      'num-calendars-input'
+    ) as HTMLInputElement | null;
+    const nonProfitCheckbox = document.getElementById(
+      'non-profit-checkbox'
+    ) as HTMLInputElement | null;
+
+    if (numCalendarsInput) {
+      numCalendarsInput.value = '1';
+    }
+
+    const basicPriceAttr = pricingCalculator?.getAttribute('basic-price');
+    const proPriceAttr = pricingCalculator?.getAttribute('pro-price');
+    const basicPriceDiscountedAttr = pricingCalculator?.getAttribute('basic-price-discounted');
+    const proPriceDiscountedAttr = pricingCalculator?.getAttribute('pro-price-discounted');
+    const annualDiscountAttr = pricingCalculator?.getAttribute('annual-discount');
+    const nonProfitDiscountAttr = pricingCalculator?.getAttribute('non-profit-discount');
+
+    const planTypeEl = document.getElementById('plan-type');
+    const numCalendarsEl = document.getElementById('num-calendars');
+    const pricePerCalendarEl = document.getElementById('price-per-calendar');
+    const discountedPricePerCalendarEl = document.getElementById('discounted-price-per-calendar');
+    const subtotalAmountEl = document.getElementById('subtotal-amount');
+    const subtotalEl = document.getElementById('subtotal');
+    const bulkDiscountAmountEl = document.getElementById('bulk-discount-amount');
+    const annualDiscountAmountEl = document.getElementById('annual-discount-amount');
+    const nonProfitDiscountAmountEl = document.getElementById('non-profit-discount-amount');
+    const totalAmountEl = document.getElementById('total-amount');
+    const annualTotalAmountEl = document.getElementById('annual-total-amount');
+
+    const bulkDiscountRowEl = document.getElementById('bulk-discount-row');
+    const annualDiscountRowEl = document.getElementById('annual-discount-row');
+    const nonProfitDiscountRowEl = document.getElementById('non-profit-discount-row');
+    const annualTotalRowEl = document.getElementById('annual-total-row');
+
+    const bulkDiscountMessageEl = document.getElementById('bulk-discount-message');
+    const annualDiscountMessageEl = document.getElementById('annual-discount-message');
+    const calendarsToAddEl = document.getElementById('calendars-to-add');
+
+    const proBenefitEls = document.querySelectorAll('.pcb-pro');
+    const costBreakdownBodyEl = document.getElementById('cost-breakdown-body');
+    const customRate20PopupEl = document.getElementById('custom-rate-20-popup');
+    const customRate10PopupEl = document.getElementById('custom-rate-10-popup');
+
+    const basicPrice = basicPriceAttr ? parseInt(basicPriceAttr) : 0;
+    const proPrice = proPriceAttr ? parseInt(proPriceAttr) : 0;
+    const basicPriceDiscounted = basicPriceDiscountedAttr ? parseInt(basicPriceDiscountedAttr) : 0;
+    const proPriceDiscounted = proPriceDiscountedAttr ? parseInt(proPriceDiscountedAttr) : 0;
+
+    const annualDiscountPercentage = annualDiscountAttr ? parseFloat(annualDiscountAttr) : 0;
+    const nonProfitDiscountPercentage = nonProfitDiscountAttr
+      ? parseFloat(nonProfitDiscountAttr)
+      : 0;
+
+    const calculatePricing = () => {
+      const numCalendars = numCalendarsInput?.value ? parseInt(numCalendarsInput.value) : 1;
+      const applyBulkDiscount = numCalendars >= 5;
+      const isProPlan = planTypeProButton?.classList.contains('pctb-selected');
+
+      const undiscountedPricePerCalendar = isProPlan ? proPrice : basicPrice;
+
+      let pricePerCalendar = isProPlan ? proPrice : basicPrice;
+
+      if (applyBulkDiscount) {
+        pricePerCalendar = isProPlan ? proPriceDiscounted : basicPriceDiscounted;
+      }
+
+      const applyAnnualDiscount = billingCycleAnnualButton?.classList.contains('pctb-selected');
+      const applyNonProfitDiscount = nonProfitCheckbox?.checked;
+
+      const baseCalendarCost = pricePerCalendar * numCalendars;
+      const annualDiscount = applyAnnualDiscount ? baseCalendarCost * annualDiscountPercentage : 0;
+      const nonProfitDiscount = applyNonProfitDiscount
+        ? baseCalendarCost * nonProfitDiscountPercentage
+        : 0;
+      const subtotal = baseCalendarCost;
+      const bulkDiscount = (undiscountedPricePerCalendar - pricePerCalendar) * numCalendars;
+      const total = subtotal - annualDiscount - nonProfitDiscount;
+      const annualTotal = total * 12;
+
+      const discountedPricePerCalendar =
+        pricePerCalendar -
+        (applyAnnualDiscount ? pricePerCalendar * annualDiscountPercentage : 0) -
+        (applyNonProfitDiscount ? pricePerCalendar * nonProfitDiscountPercentage : 0);
+
+      if (pricePerCalendarEl) {
+        pricePerCalendarEl.textContent = pricePerCalendar.toString();
+      }
+      if (discountedPricePerCalendarEl) {
+        discountedPricePerCalendarEl.textContent = Math.ceil(discountedPricePerCalendar).toString();
+      }
+      if (subtotalAmountEl) {
+        subtotalAmountEl.textContent = subtotal.toString();
+      }
+      if (subtotalEl) {
+        subtotalEl.textContent = subtotal.toString();
+      }
+      if (bulkDiscountAmountEl) {
+        bulkDiscountAmountEl.textContent = bulkDiscount.toString();
+      }
+      if (annualDiscountAmountEl) {
+        annualDiscountAmountEl.textContent = Math.ceil(annualDiscount).toString();
+      }
+      if (nonProfitDiscountAmountEl) {
+        nonProfitDiscountAmountEl.textContent = Math.ceil(nonProfitDiscount).toString();
+      }
+      if (totalAmountEl) {
+        totalAmountEl.textContent = Math.ceil(total).toString();
+      }
+      if (annualTotalAmountEl) {
+        annualTotalAmountEl.textContent = Math.ceil(annualTotal).toLocaleString();
+      }
+      if (bulkDiscountRowEl) {
+        bulkDiscountRowEl.classList.toggle('hide', !applyBulkDiscount);
+      }
+      if (annualDiscountRowEl) {
+        annualDiscountRowEl.classList.toggle('hide', !applyAnnualDiscount);
+      }
+      if (nonProfitDiscountRowEl) {
+        nonProfitDiscountRowEl.classList.toggle('hide', !applyNonProfitDiscount);
+      }
+      if (annualTotalRowEl) {
+        annualTotalRowEl.classList.toggle('hide', !applyAnnualDiscount);
+      }
+      if (bulkDiscountMessageEl) {
+        bulkDiscountMessageEl.classList.toggle('hide', numCalendars < 3 || numCalendars > 4);
+        if (calendarsToAddEl) {
+          calendarsToAddEl.textContent = (5 - numCalendars).toString();
+        }
+      }
+      if (annualDiscountMessageEl) {
+        annualDiscountMessageEl.classList.toggle('hide', applyAnnualDiscount);
+      }
+      if (costBreakdownBodyEl) {
+        costBreakdownBodyEl.classList.toggle('section-blur', numCalendars >= 20);
+      }
+      if (customRate20PopupEl) {
+        customRate20PopupEl.classList.toggle('hide', !(numCalendars >= 20));
+      }
+      if (customRate10PopupEl) {
+        customRate10PopupEl.classList.toggle('hide', !(numCalendars >= 10 && numCalendars < 20));
+      }
+    };
+
+    const handleClickBasic = () => {
+      planTypeBasicButton?.classList.add('pctb-selected');
+      planTypeProButton?.classList.remove('pctb-selected');
+      if (planTypeEl) planTypeEl.textContent = 'Basic';
+      proBenefitEls.forEach((el) => {
+        el.classList.add('pcb-not-included');
+      });
+      calculatePricing();
+    };
+
+    const handleClickPro = () => {
+      planTypeProButton?.classList.add('pctb-selected');
+      planTypeBasicButton?.classList.remove('pctb-selected');
+      if (planTypeEl) planTypeEl.textContent = 'Pro';
+      proBenefitEls.forEach((el) => {
+        el.classList.remove('pcb-not-included');
+      });
+      calculatePricing();
+    };
+
+    const handleClickAnnual = () => {
+      billingCycleAnnualButton?.classList.add('pctb-selected');
+      billingCycleMonthlyButton?.classList.remove('pctb-selected');
+      calculatePricing();
+    };
+
+    const handleClickMonthly = () => {
+      billingCycleMonthlyButton?.classList.add('pctb-selected');
+      billingCycleAnnualButton?.classList.remove('pctb-selected');
+      calculatePricing();
+    };
+
+    const handleNumCalendarsChange = () => {
+      if (numCalendarsEl && numCalendarsInput) {
+        numCalendarsEl.textContent = numCalendarsInput.value;
+      }
+      calculatePricing();
+    };
+
+    const handleNonProfitChange = () => {
+      calculatePricing();
+    };
+
+    planTypeBasicButton?.addEventListener('click', handleClickBasic);
+    planTypeProButton?.addEventListener('click', handleClickPro);
+    billingCycleAnnualButton?.addEventListener('click', handleClickAnnual);
+    billingCycleMonthlyButton?.addEventListener('click', handleClickMonthly);
+    numCalendarsInput?.addEventListener('input', handleNumCalendarsChange);
+    nonProfitCheckbox?.addEventListener('change', handleNonProfitChange);
+
+    calculatePricing();
   }
 };
