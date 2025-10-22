@@ -606,10 +606,12 @@ export const pricingPage = () => {
         (applyNonProfitDiscount ? pricePerCalendar * nonProfitDiscountPercentage : 0);
 
       if (pricePerCalendarEl) {
-        pricePerCalendarEl.textContent = undiscountedPricePerCalendar.toString();
+        pricePerCalendarEl.textContent = undiscountedPricePerCalendar.toLocaleString();
       }
       if (discountedPricePerCalendarEl) {
-        discountedPricePerCalendarEl.textContent = Math.ceil(discountedPricePerCalendar).toString();
+        discountedPricePerCalendarEl.textContent = Math.ceil(
+          discountedPricePerCalendar
+        ).toLocaleString();
       }
       if (afterDiscountsEl) {
         afterDiscountsEl.classList.toggle(
@@ -618,19 +620,19 @@ export const pricingPage = () => {
         );
       }
       if (subtotalAmountEl) {
-        subtotalAmountEl.textContent = subtotal.toString();
+        subtotalAmountEl.textContent = subtotal.toLocaleString();
       }
       if (bulkDiscountAmountEl) {
-        bulkDiscountAmountEl.textContent = bulkDiscount.toString();
+        bulkDiscountAmountEl.textContent = bulkDiscount.toLocaleString();
       }
       if (annualDiscountAmountEl) {
-        annualDiscountAmountEl.textContent = Math.ceil(annualDiscount).toString();
+        annualDiscountAmountEl.textContent = Math.ceil(annualDiscount).toLocaleString();
       }
       if (nonProfitDiscountAmountEl) {
-        nonProfitDiscountAmountEl.textContent = Math.ceil(nonProfitDiscount).toString();
+        nonProfitDiscountAmountEl.textContent = Math.ceil(nonProfitDiscount).toLocaleString();
       }
       if (totalAmountEl) {
-        totalAmountEl.textContent = Math.ceil(total).toString();
+        totalAmountEl.textContent = Math.ceil(total).toLocaleString();
       }
       if (annualTotalAmountEl) {
         annualTotalAmountEl.textContent = Math.ceil(annualTotal).toLocaleString();
@@ -650,7 +652,7 @@ export const pricingPage = () => {
       if (bulkDiscountMessageEl) {
         bulkDiscountMessageEl.classList.toggle('hide', numCalendars < 3 || numCalendars > 4);
         if (calendarsToAddEl) {
-          calendarsToAddEl.textContent = (5 - numCalendars).toString();
+          calendarsToAddEl.textContent = (5 - numCalendars).toLocaleString();
         }
       }
       if (annualDiscountMessageEl) {
