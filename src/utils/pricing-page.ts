@@ -542,8 +542,8 @@ export const pricingPage = () => {
     const numCalendarsEl = document.getElementById('num-calendars');
     const pricePerCalendarEl = document.getElementById('price-per-calendar');
     const discountedPricePerCalendarEl = document.getElementById('discounted-price-per-calendar');
+    const afterDiscountsEl = document.getElementById('after-discounts');
     const subtotalAmountEl = document.getElementById('subtotal-amount');
-    const subtotalEl = document.getElementById('subtotal');
     const bulkDiscountAmountEl = document.getElementById('bulk-discount-amount');
     const annualDiscountAmountEl = document.getElementById('annual-discount-amount');
     const nonProfitDiscountAmountEl = document.getElementById('non-profit-discount-amount');
@@ -595,9 +595,9 @@ export const pricingPage = () => {
       const nonProfitDiscount = applyNonProfitDiscount
         ? baseCalendarCost * nonProfitDiscountPercentage
         : 0;
-      const subtotal = baseCalendarCost;
+      const subtotal = undiscountedPricePerCalendar * numCalendars;
       const bulkDiscount = (undiscountedPricePerCalendar - pricePerCalendar) * numCalendars;
-      const total = subtotal - annualDiscount - nonProfitDiscount;
+      const total = baseCalendarCost - annualDiscount - nonProfitDiscount;
       const annualTotal = total * 12;
 
       const discountedPricePerCalendar =
@@ -606,16 +606,19 @@ export const pricingPage = () => {
         (applyNonProfitDiscount ? pricePerCalendar * nonProfitDiscountPercentage : 0);
 
       if (pricePerCalendarEl) {
-        pricePerCalendarEl.textContent = pricePerCalendar.toString();
+        pricePerCalendarEl.textContent = undiscountedPricePerCalendar.toString();
       }
       if (discountedPricePerCalendarEl) {
         discountedPricePerCalendarEl.textContent = Math.ceil(discountedPricePerCalendar).toString();
       }
+      if (afterDiscountsEl) {
+        afterDiscountsEl.classList.toggle(
+          'hide',
+          !(applyBulkDiscount || applyAnnualDiscount || applyNonProfitDiscount)
+        );
+      }
       if (subtotalAmountEl) {
         subtotalAmountEl.textContent = subtotal.toString();
-      }
-      if (subtotalEl) {
-        subtotalEl.textContent = subtotal.toString();
       }
       if (bulkDiscountAmountEl) {
         bulkDiscountAmountEl.textContent = bulkDiscount.toString();
