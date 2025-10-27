@@ -574,9 +574,12 @@ export const pricingPage = () => {
       ? parseFloat(nonProfitDiscountAttr)
       : 0;
 
+    const MAX_CALENDARS = 20;
+
     const calculatePricing = () => {
-      const numCalendars = numCalendarsInput?.value ? parseInt(numCalendarsInput.value) : 1;
-      const applyBulkDiscount = numCalendars >= 5;
+      const numCalendars = numCalendarsInput?.value ? parseInt(numCalendarsInput.value) : 0;
+      const effectiveCalendars = Math.max(0, Math.min(numCalendars, MAX_CALENDARS));
+      const applyBulkDiscount = effectiveCalendars >= 5;
       const isProPlan = planTypeProButton?.classList.contains('pctb-selected');
 
       const undiscountedPricePerCalendar = isProPlan ? proPrice : basicPrice;
@@ -590,31 +593,36 @@ export const pricingPage = () => {
       const applyAnnualDiscount = billingCycleAnnualButton?.classList.contains('pctb-selected');
       const applyNonProfitDiscount = nonProfitCheckbox?.checked;
 
-      const baseCalendarCost = pricePerCalendar * numCalendars;
-      const annualDiscount = applyAnnualDiscount ? baseCalendarCost * annualDiscountPercentage : 0;
-      const nonProfitDiscount = applyNonProfitDiscount
-        ? baseCalendarCost * nonProfitDiscountPercentage
-        : 0;
-      const subtotal = undiscountedPricePerCalendar * numCalendars;
-      const bulkDiscount = (undiscountedPricePerCalendar - pricePerCalendar) * numCalendars;
-      const total = baseCalendarCost - annualDiscount - nonProfitDiscount;
+      const subtotal = undiscountedPricePerCalendar * effectiveCalendars;
+      const totalBulkDiscount =
+        (undiscountedPricePerCalendar - pricePerCalendar) * effectiveCalendars;
+
+      const annualDiscountPerCalendar = Math.ceil(
+        applyAnnualDiscount ? pricePerCalendar * annualDiscountPercentage : 0
+      );
+      const totalAnnualDiscount = annualDiscountPerCalendar * effectiveCalendars;
+
+      const nonProfitDiscountPerCalendar = Math.ceil(
+        applyNonProfitDiscount ? pricePerCalendar * nonProfitDiscountPercentage : 0
+      );
+      const totalNonProfitDiscount = nonProfitDiscountPerCalendar * effectiveCalendars;
+
+      const total = subtotal - totalBulkDiscount - totalAnnualDiscount - totalNonProfitDiscount;
       const annualTotal = total * 12;
 
       const discountedPricePerCalendar =
         pricePerCalendar -
-        (applyAnnualDiscount ? pricePerCalendar * annualDiscountPercentage : 0) -
-        (applyNonProfitDiscount ? pricePerCalendar * nonProfitDiscountPercentage : 0);
+        (applyAnnualDiscount ? annualDiscountPerCalendar : 0) -
+        (applyNonProfitDiscount ? nonProfitDiscountPerCalendar : 0);
 
       if (pricePerCalendarEl) {
         pricePerCalendarEl.textContent = undiscountedPricePerCalendar.toLocaleString();
       }
       if (discountedPricePerCalendarEl) {
-        discountedPricePerCalendarEl.textContent = Math.ceil(
-          discountedPricePerCalendar
-        ).toLocaleString();
+        discountedPricePerCalendarEl.textContent = discountedPricePerCalendar.toLocaleString();
       }
       if (afterDiscountsEl) {
-        afterDiscountsEl.classList.toggle(
+        afterDiscountsEl?.classList.toggle(
           'hide',
           !(applyBulkDiscount || applyAnnualDiscount || applyNonProfitDiscount)
         );
@@ -623,19 +631,19 @@ export const pricingPage = () => {
         subtotalAmountEl.textContent = subtotal.toLocaleString();
       }
       if (bulkDiscountAmountEl) {
-        bulkDiscountAmountEl.textContent = bulkDiscount.toLocaleString();
+        bulkDiscountAmountEl.textContent = totalBulkDiscount.toLocaleString();
       }
       if (annualDiscountAmountEl) {
-        annualDiscountAmountEl.textContent = Math.ceil(annualDiscount).toLocaleString();
+        annualDiscountAmountEl.textContent = totalAnnualDiscount.toLocaleString();
       }
       if (nonProfitDiscountAmountEl) {
-        nonProfitDiscountAmountEl.textContent = Math.ceil(nonProfitDiscount).toLocaleString();
+        nonProfitDiscountAmountEl.textContent = totalNonProfitDiscount.toLocaleString();
       }
       if (totalAmountEl) {
-        totalAmountEl.textContent = Math.ceil(total).toLocaleString();
+        totalAmountEl.textContent = total.toLocaleString();
       }
       if (annualTotalAmountEl) {
-        annualTotalAmountEl.textContent = Math.ceil(annualTotal).toLocaleString();
+        annualTotalAmountEl.textContent = annualTotal.toLocaleString();
       }
       if (bulkDiscountRowEl) {
         bulkDiscountRowEl.classList.toggle('hide', !applyBulkDiscount);
@@ -650,22 +658,32 @@ export const pricingPage = () => {
         annualTotalRowEl.classList.toggle('hide', !applyAnnualDiscount);
       }
       if (bulkDiscountMessageEl) {
-        bulkDiscountMessageEl.classList.toggle('hide', numCalendars < 3 || numCalendars > 4);
+        bulkDiscountMessageEl.classList.toggle(
+          'hide',
+          effectiveCalendars < 3 || effectiveCalendars > 4
+        );
         if (calendarsToAddEl) {
-          calendarsToAddEl.textContent = (5 - numCalendars).toLocaleString();
+          const calendarsToAdd = 5 - effectiveCalendars;
+          const calendarsToAddText = calendarsToAdd.toLocaleString();
+          calendarsToAddEl.textContent = `${calendarsToAddText} more calendar${
+            calendarsToAdd > 1 ? 's' : ''
+          }`;
         }
       }
       if (annualDiscountMessageEl) {
         annualDiscountMessageEl.classList.toggle('hide', applyAnnualDiscount);
       }
       if (costBreakdownBodyEl) {
-        costBreakdownBodyEl.classList.toggle('section-blur', numCalendars >= 20);
+        costBreakdownBodyEl.classList.toggle('section-blur', effectiveCalendars >= MAX_CALENDARS);
       }
       if (customRate20PopupEl) {
-        customRate20PopupEl.classList.toggle('hide', !(numCalendars >= 20));
+        customRate20PopupEl.classList.toggle('hide', !(effectiveCalendars >= MAX_CALENDARS));
       }
       if (customRate10PopupEl) {
-        customRate10PopupEl.classList.toggle('hide', !(numCalendars >= 10 && numCalendars < 20));
+        customRate10PopupEl.classList.toggle(
+          'hide',
+          !(effectiveCalendars >= 10 && effectiveCalendars < MAX_CALENDARS)
+        );
       }
     };
 
@@ -703,7 +721,27 @@ export const pricingPage = () => {
 
     const handleNumCalendarsChange = () => {
       if (numCalendarsEl && numCalendarsInput) {
-        numCalendarsEl.textContent = numCalendarsInput.value;
+        const newValue = numCalendarsInput.value;
+
+        if (newValue === '') {
+          numCalendarsEl.textContent = '0 Calendars';
+          return;
+        }
+
+        const numericValue = parseInt(newValue);
+
+        if (isNaN(numericValue)) {
+          numCalendarsInput.value = '0';
+          numCalendarsEl.textContent = '0 Calendars';
+        } else {
+          const numText =
+            numericValue > MAX_CALENDARS
+              ? MAX_CALENDARS.toString()
+              : numericValue < 0
+              ? '0'
+              : numericValue.toString();
+          numCalendarsEl.textContent = `${numText} Calendar${numericValue !== 1 ? 's' : ''}`;
+        }
       }
       calculatePricing();
     };
