@@ -368,8 +368,6 @@ export const pricingPage = () => {
       const pricingCategory = agenciesRadioButton?.checked ? 'agencies' : 'teams';
       const pricingPeriod = pricingToggle?.checked ? 'annually' : 'monthly';
 
-      console.log({ pricingCategory, pricingPeriod });
-
       // Handle agencies Selected
       if (
         agenciesRadioButton?.checked &&
