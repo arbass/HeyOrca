@@ -352,27 +352,12 @@ export const pricingPage = () => {
       'pricing-radio-button-teams'
     ) as HTMLInputElement;
 
-    const agenciesIcon = document.getElementById('agencies-icon');
-    const teamsIcon = document.getElementById('teams-icon');
-
     const basicPriceEl = document.getElementById('basic-price');
-    const standardPriceEl = document.getElementById('standard-price');
     const proPriceEl = document.getElementById('pro-price');
 
     const pricingToggle = document.getElementById('pricing-toggle') as HTMLInputElement;
     const pricingToggleLabelMonthly = document.getElementById('pricing-toggle-label-monthly');
     const pricingToggleLabelAnnually = document.getElementById('pricing-toggle-label-annually');
-
-    const freeDemoLink = document.getElementById('free-demo-link');
-    const basicDemoLink = document.getElementById('basic-demo-link');
-    const standardDemoLink = document.getElementById('standard-demo-link');
-
-    const pricingButtonLinks = document.querySelectorAll('.pricing-button-link');
-    const secondaryCtaLinks = document.querySelectorAll('.pricing-demo-link');
-
-    const pricingCardFree = document.getElementById('pricing-card-free');
-    const pricingSlideFree = document.getElementById('pricing-slide-free');
-    const pricingCardGrid = document.getElementById('pricing-card-grid');
 
     const pricingTableHeaders = document.querySelectorAll('.pricing-table-header');
     const pricingTableSectionRows = document.querySelectorAll('.pricing-table-section-row');
@@ -381,7 +366,9 @@ export const pricingPage = () => {
 
     const handleChangePricing = () => {
       const pricingCategory = agenciesRadioButton?.checked ? 'agencies' : 'teams';
-      const pricingPeriod = pricingToggle?.checked ? 'monthly' : 'annually';
+      const pricingPeriod = pricingToggle?.checked ? 'annually' : 'monthly';
+
+      console.log({ pricingCategory, pricingPeriod });
 
       // Handle agencies Selected
       if (
@@ -390,16 +377,6 @@ export const pricingPage = () => {
       ) {
         agenciesRadio?.classList.add('pricing-radio-selected');
         teamsRadio?.classList.remove('pricing-radio-selected');
-        agenciesIcon?.classList.remove('grey-icon');
-        teamsIcon?.classList.add('grey-icon');
-
-        freeDemoLink?.classList.remove('hide');
-        basicDemoLink?.classList.remove('hide');
-        standardDemoLink?.classList.remove('hide');
-
-        pricingCardFree?.classList.add('hide');
-        pricingSlideFree?.classList.add('hide');
-        pricingCardGrid?.classList.remove('with-free-plan');
 
         pricingTableHeaders?.forEach((header) => {
           header.classList.remove('with-free-plan');
@@ -422,15 +399,6 @@ export const pricingPage = () => {
       if (teamsRadioButton?.checked && !teamsRadio?.classList.contains('pricing-radio-selected')) {
         teamsRadio?.classList.add('pricing-radio-selected');
         agenciesRadio?.classList.remove('pricing-radio-selected');
-        teamsIcon?.classList.remove('grey-icon');
-        agenciesIcon?.classList.add('grey-icon');
-
-        !freeDemoLink?.classList.contains('hide') && freeDemoLink?.classList.add('hide');
-        !basicDemoLink?.classList.contains('hide') && basicDemoLink?.classList.add('hide');
-
-        pricingCardFree?.classList.remove('hide');
-        pricingSlideFree?.classList.remove('hide');
-        pricingCardGrid?.classList.add('with-free-plan');
 
         pricingTableHeaders?.forEach((header) => {
           !header.classList.contains('with-free-plan') && header.classList.add('with-free-plan');
@@ -452,48 +420,22 @@ export const pricingPage = () => {
 
       // Handle toggle label color
       if (pricingToggle?.checked) {
-        !pricingToggleLabelAnnually?.classList.contains('grey-text') &&
-          pricingToggleLabelAnnually?.classList.add('grey-text');
-
-        pricingToggleLabelMonthly?.classList.contains('grey-text') &&
-          pricingToggleLabelMonthly?.classList.remove('grey-text');
-      } else {
         pricingToggleLabelAnnually?.classList.contains('grey-text') &&
           pricingToggleLabelAnnually?.classList.remove('grey-text');
 
         !pricingToggleLabelMonthly?.classList.contains('grey-text') &&
           pricingToggleLabelMonthly?.classList.add('grey-text');
+      } else {
+        !pricingToggleLabelAnnually?.classList.contains('grey-text') &&
+          pricingToggleLabelAnnually?.classList.add('grey-text');
+
+        pricingToggleLabelMonthly?.classList.contains('grey-text') &&
+          pricingToggleLabelMonthly?.classList.remove('grey-text');
       }
-
-      pricingButtonLinks.forEach((link) => {
-        const href = link.getAttribute(`${pricingCategory}-button-link`);
-        const text = link.getAttribute(`${pricingCategory}-button-text`);
-        const spanText = link.querySelector('div span');
-        if (href) {
-          link.setAttribute('href', href);
-        }
-        if (spanText) {
-          spanText.textContent = text;
-        }
-      });
-
-      secondaryCtaLinks.forEach((link) => {
-        const href = link.getAttribute(`${pricingCategory}-button-link`);
-        const text = link.getAttribute(`${pricingCategory}-button-text`);
-        link.textContent = text;
-        if (href) {
-          link.setAttribute('href', href);
-        }
-      });
 
       if (basicPriceEl) {
         basicPriceEl.innerText =
           basicPriceEl.getAttribute(`${pricingCategory}-${pricingPeriod}`) ?? '';
-      }
-
-      if (standardPriceEl) {
-        standardPriceEl.innerText =
-          standardPriceEl.getAttribute(`${pricingCategory}-${pricingPeriod}`) ?? '';
       }
 
       if (proPriceEl) {
