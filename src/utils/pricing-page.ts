@@ -359,6 +359,9 @@ export const pricingPage = () => {
     const pricingToggleLabelMonthly = document.getElementById('pricing-toggle-label-monthly');
     const pricingToggleLabelAnnually = document.getElementById('pricing-toggle-label-annually');
 
+    const pricingCardFree = document.getElementById('pricing-card-free');
+    const pricingCardCustom = document.getElementById('pricing-card-custom');
+
     const pricingTableHeaders = document.querySelectorAll('.pricing-table-header');
     const pricingTableSectionRows = document.querySelectorAll('.pricing-table-section-row');
     const pricingTableRows = document.querySelectorAll('.pricing-table-row');
@@ -368,13 +371,15 @@ export const pricingPage = () => {
       const pricingCategory = agenciesRadioButton?.checked ? 'agencies' : 'teams';
       const pricingPeriod = pricingToggle?.checked ? 'annually' : 'monthly';
 
-      // Handle agencies Selected
+      // Handle agencies selected
       if (
         agenciesRadioButton?.checked &&
         !agenciesRadio?.classList.contains('pricing-radio-selected')
       ) {
         agenciesRadio?.classList.add('pricing-radio-selected');
         teamsRadio?.classList.remove('pricing-radio-selected');
+        pricingCardFree?.classList.add('hide');
+        pricingCardCustom?.classList.remove('hide');
 
         pricingTableHeaders?.forEach((header) => {
           header.classList.remove('with-free-plan');
@@ -393,10 +398,12 @@ export const pricingPage = () => {
         });
       }
 
-      // Handle teams Selected
+      // Handle teams selected
       if (teamsRadioButton?.checked && !teamsRadio?.classList.contains('pricing-radio-selected')) {
         teamsRadio?.classList.add('pricing-radio-selected');
         agenciesRadio?.classList.remove('pricing-radio-selected');
+        pricingCardFree?.classList.remove('hide');
+        pricingCardCustom?.classList.add('hide');
 
         pricingTableHeaders?.forEach((header) => {
           !header.classList.contains('with-free-plan') && header.classList.add('with-free-plan');
