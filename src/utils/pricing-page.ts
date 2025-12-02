@@ -360,6 +360,7 @@ export const pricingPage = () => {
     const pricingToggleLabelAnnually = document.getElementById('pricing-toggle-label-annually');
 
     const pricingCardFree = document.getElementById('pricing-card-free');
+    const pricingSlideFree = document.getElementById('pricing-slide-free');
     const pricingCardCustom = document.getElementById('pricing-card-custom');
 
     const pricingTableHeaders = document.querySelectorAll('.pricing-table-header');
@@ -379,6 +380,7 @@ export const pricingPage = () => {
         agenciesRadio?.classList.add('pricing-radio-selected');
         teamsRadio?.classList.remove('pricing-radio-selected');
         pricingCardFree?.classList.add('hide');
+        pricingSlideFree?.classList.add('hide');
         pricingCardCustom?.classList.remove('hide');
 
         pricingTableHeaders?.forEach((header) => {
@@ -403,6 +405,7 @@ export const pricingPage = () => {
         teamsRadio?.classList.add('pricing-radio-selected');
         agenciesRadio?.classList.remove('pricing-radio-selected');
         pricingCardFree?.classList.remove('hide');
+        pricingSlideFree?.classList.remove('hide');
         pricingCardCustom?.classList.add('hide');
 
         pricingTableHeaders?.forEach((header) => {
