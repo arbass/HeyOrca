@@ -918,8 +918,7 @@ export const pricingPage = () => {
       handleUpdateAddonTotal(basicCalendarPrice, proCalendarPrice, selectedAddonTotalPrice);
     };
 
-    const handleAddonButtonClick = (button: Element) => {
-      const buttonEl = button as HTMLElement;
+    const handleAddonButtonClick = (buttonEl: HTMLElement) => {
       const plusSvgEl = buttonEl.querySelector('.plus-svg');
       const checkSvgEl = buttonEl.querySelector('.check-svg');
       const addonButtonTextEl = buttonEl.querySelector('.addon-button-text') as HTMLElement;
@@ -954,10 +953,17 @@ export const pricingPage = () => {
       handleAddonButtonClick(socialListeningAddButtonEl);
       handleAddonCardClick(socialListeningCardEl);
     });
-    [socialReportsCardEl, socialInboxCardEl, socialListeningCardEl].forEach((card) => {
-      card?.addEventListener('click', () => {
-        handleAddonCardClick(card);
-      });
+    socialReportsCardEl?.addEventListener('click', () => {
+      handleAddonButtonClick(socialReportsAddButtonEl as HTMLElement);
+      handleAddonCardClick(socialReportsCardEl);
+    });
+    socialInboxCardEl?.addEventListener('click', () => {
+      handleAddonButtonClick(socialInboxAddButtonEl as HTMLElement);
+      handleAddonCardClick(socialInboxCardEl);
+    });
+    socialListeningCardEl?.addEventListener('click', () => {
+      handleAddonButtonClick(socialListeningAddButtonEl as HTMLElement);
+      handleAddonCardClick(socialListeningCardEl);
     });
   }
 };
