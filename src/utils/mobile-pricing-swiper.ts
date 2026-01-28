@@ -89,35 +89,40 @@ export const mobilePricingSwiper = () => {
           if (header.classList.contains('reporting')) {
             toggleAccordionWithClass('reporting');
           }
-          if (header.classList.contains('community-management')) {
-            toggleAccordionWithClass('community-management');
+          if (header.classList.contains('social-listening')) {
+            toggleAccordionWithClass('social-listening');
+          }
+          if (header.classList.contains('social-inbox')) {
+            toggleAccordionWithClass('social-inbox');
           }
         });
       });
 
       window.addEventListener('resize', () => {
-        ['features', 'publishing', 'reporting', 'community-management'].forEach((className) => {
-          const headers = document.querySelectorAll(
-            `.accordion-header.${className}`
-          ) as NodeListOf<HTMLElement>;
+        ['features', 'publishing', 'reporting', 'social-listening', 'social-inbox'].forEach(
+          (className) => {
+            const headers = document.querySelectorAll(
+              `.accordion-header.${className}`
+            ) as NodeListOf<HTMLElement>;
 
-          let largestHeight = 0;
+            let largestHeight = 0;
 
-          headers.forEach((header) => {
-            const accordionContent = header.nextElementSibling as HTMLElement;
+            headers.forEach((header) => {
+              const accordionContent = header.nextElementSibling as HTMLElement;
 
-            if (accordionContent.classList.contains('open')) {
-              accordionContent.style.height = 'auto';
-              const contentHeight = accordionContent.scrollHeight;
-              if (contentHeight > largestHeight) largestHeight = contentHeight;
-            }
-          });
+              if (accordionContent.classList.contains('open')) {
+                accordionContent.style.height = 'auto';
+                const contentHeight = accordionContent.scrollHeight;
+                if (contentHeight > largestHeight) largestHeight = contentHeight;
+              }
+            });
 
-          headers.forEach((header) => {
-            const accordionContent = header.nextElementSibling as HTMLElement;
-            accordionContent.style.height = `${largestHeight}px`;
-          });
-        });
+            headers.forEach((header) => {
+              const accordionContent = header.nextElementSibling as HTMLElement;
+              accordionContent.style.height = `${largestHeight}px`;
+            });
+          }
+        );
       });
 
       pricingRadioGroup[0]?.addEventListener('change', updateSlides);
