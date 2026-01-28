@@ -817,9 +817,6 @@ export const pricingPage = () => {
         return { basicSavings: 0, proSavings: 0 };
       }
 
-      const { basicCalendarPrice, proCalendarPrice } = getSelectedCalendarPrices();
-      const discountedAddonTotal = calculateSelectedAddonTotalPrice(pricingPeriod);
-
       // Get monthly (non-discounted) base prices
       const basicMonthlyPrice = basicPriceEl
         ? parseInt(basicPriceEl.getAttribute('monthly') ?? '0')
@@ -827,31 +824,27 @@ export const pricingPage = () => {
       const proMonthlyPrice = proPriceEl ? parseInt(proPriceEl.getAttribute('monthly') ?? '0') : 0;
 
       // Calculate non-discounted totals (multiply by 12 for annual)
-      const basicNonDiscountedBase = basicMonthlyPrice * 12;
-      const proNonDiscountedBase = proMonthlyPrice * 12;
-      const nonDiscountedAddonTotal = calculateSelectedAddonTotalPrice('monthly') * 12;
+      const basicBase = basicMonthlyPrice * 12;
+      const proBase = proMonthlyPrice * 12;
+      const addonTotalBase = calculateSelectedAddonTotalPrice('monthly') * 12;
 
-      // Calculate discounted totals (annual prices are monthly equivalents, so multiply by 12)
-      const basicDiscountedBase = basicCalendarPrice * 12;
-      const proDiscountedBase = proCalendarPrice * 12;
-      const discountedAddonTotalAnnual = discountedAddonTotal * 12;
+      const basicTotal = basicBase + addonTotalBase;
+      const basicTotalDiscounted = (basicBase + addonTotalBase) * 0.85;
+      const proDiscounted = proBase * 0.85;
 
       // Calculate savings: (non-discounted total) - (discounted total)
-      const basicSavings =
-        basicNonDiscountedBase +
-        nonDiscountedAddonTotal -
-        (basicDiscountedBase + discountedAddonTotalAnnual);
-      const proSavings = proNonDiscountedBase - proDiscountedBase;
+      const basicSavings = basicTotal - basicTotalDiscounted;
+      const proSavings = proBase - proDiscounted;
 
       pricingCardSavingsTextEls.forEach((el) => {
         el?.classList.remove('hide');
       });
 
       if (basicSavingsEl) {
-        basicSavingsEl.textContent = basicSavings.toLocaleString();
+        basicSavingsEl.textContent = Math.floor(basicSavings).toLocaleString();
       }
       if (proSavingsEl) {
-        proSavingsEl.textContent = proSavings.toLocaleString();
+        proSavingsEl.textContent = Math.floor(proSavings).toLocaleString();
       }
     };
 
