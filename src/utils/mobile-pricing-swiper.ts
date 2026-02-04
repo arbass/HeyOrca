@@ -6,8 +6,9 @@ import { Pagination } from 'swiper/modules';
 
 export const mobilePricingSwiper = () => {
   const isPricingPage = Boolean(document.querySelector('[page-name=price-2024]'));
+  const isPricingPage2026 = Boolean(document.querySelector('[page-name=pricing-2026]'));
 
-  if (isPricingPage) {
+  if (isPricingPage || isPricingPage2026) {
     const mobilePricingSwiper = document.querySelector(
       '.swiper.mobile-pricing-swiper'
     ) as HTMLElement;
