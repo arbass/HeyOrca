@@ -3,6 +3,7 @@ import { articlesNotNull } from '$utils/blog-article-not-null';
 import { categoriesSlider } from '$utils/categories-slider';
 import { competitorPage } from '$utils/competitor-page';
 import { earlyAgenciesPage } from '$utils/early-agencies-page';
+import { emailRedirectForm } from '$utils/email-redirect-form';
 import { featureCardsTunnel } from '$utils/feature-cards-tunnel';
 import { sectionColFeature_2 } from '$utils/feature-cards-tunnel_2';
 import { featuresCardsList } from '$utils/features-cards_list';
@@ -53,4 +54,5 @@ window.Webflow.push(() => {
   earlyAgenciesPage();
   signUpForm();
   competitorPage();
+  emailRedirectForm();
 });
