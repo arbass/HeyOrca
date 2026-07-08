@@ -18,26 +18,32 @@ export const emailRedirectForm = () => {
         'utm_device',
       ] as const;
 
-      emailRedirectForm.addEventListener('submit', (event) => {
-        event.preventDefault();
+      document.addEventListener(
+        'submit',
+        (event) => {
+          if (event.target !== emailRedirectForm) return;
+          event.preventDefault();
+          event.stopPropagation();
 
-        const incoming = new URLSearchParams(window.location.search);
-        const outgoing = new URLSearchParams();
+          const incoming = new URLSearchParams(window.location.search);
+          const outgoing = new URLSearchParams();
 
-        const emailInput = emailRedirectForm.querySelector<HTMLInputElement>('[name="email"]');
-        if (emailInput?.value) {
-          outgoing.set('email', emailInput.value.trim());
-        }
+          const emailInput = emailRedirectForm.querySelector<HTMLInputElement>('[name="email"]');
+          if (emailInput?.value) {
+            outgoing.set('email', emailInput.value.trim());
+          }
 
-        outgoing.set('pageId', pageId);
+          outgoing.set('pageId', pageId);
 
-        UTM_KEYS.forEach((key) => {
-          const value = incoming.get(key);
-          if (value) outgoing.set(key, value);
-        });
+          UTM_KEYS.forEach((key) => {
+            const value = incoming.get(key);
+            if (value) outgoing.set(key, value);
+          });
 
-        window.location.assign(`${SIGNUP_URL}?${outgoing.toString()}`);
-      });
+          window.location.assign(`${SIGNUP_URL}?${outgoing.toString()}`);
+        },
+        true
+      );
     } else {
       console.error('Email redirect form not found!');
     }
