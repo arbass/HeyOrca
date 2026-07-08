@@ -6,7 +6,6 @@ export const emailRedirectForm = () => {
 
     if (emailRedirectForm) {
       const SIGNUP_URL = 'https://app.heyorca.com/signup';
-      const pageId = '9366b56d-11b8-4f9f-bcbe-797bca4fe540';
 
       const UTM_KEYS = [
         'utm_source',
@@ -32,8 +31,6 @@ export const emailRedirectForm = () => {
           if (emailInput?.value) {
             outgoing.set('email', emailInput.value.trim());
           }
-
-          outgoing.set('pageId', pageId);
 
           UTM_KEYS.forEach((key) => {
             const value = incoming.get(key);

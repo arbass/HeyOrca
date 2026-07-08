@@ -5,8 +5,6 @@ export const signUpForm = () => {
     const signUpForm = document.forms[0];
 
     if (signUpForm.id === 'signup-form') {
-      const pageId = '9366b56d-11b8-4f9f-bcbe-797bca4fe540';
-
       const UTM_CAMPAIGN = 'utm_campaign';
       const UTM_CONTENT = 'utm_content';
       const UTM_DEVICE = 'utm_device';
@@ -24,12 +22,6 @@ export const signUpForm = () => {
       const utm_placement = utmParams.get(UTM_PLACEMENT);
       const utm_source = utmParams.get(UTM_SOURCE);
       const utm_term = utmParams.get(UTM_TERM);
-
-      const pageId_input = document.createElement('input');
-      pageId_input.type = 'hidden';
-      pageId_input.name = 'pageId';
-      pageId_input.value = pageId;
-      signUpForm.appendChild(pageId_input);
 
       if (utm_campaign) {
         const utm_campaign_input = document.createElement('input');
